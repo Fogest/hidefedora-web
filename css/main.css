@@ -1,0 +1,29 @@
+
+#site {
+	width: 80%;
+	margin: auto;
+	box-shadow: 2px 5px 5px 2px #888;
+	-moz-box-shadow: 2px 5px 5px 2px #888;
+	-webkit-box-shadow: 2px 5px 5px 2px #888;
+}
+
+#mainContent {
+	min-height: 500px;
+}
+.navbar-fixed-top {
+	position: relative;
+}
+
+hr {
+	margin-top: 10px;
+}
+.brand img {
+	width: 225px;
+	height: 20px;
+}
+#footer-img, #footer-text {
+	padding-bottom: 2px;
+}
+ul {
+	list-style-position: inside;
+}
