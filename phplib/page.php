@@ -62,8 +62,8 @@
 				<html lang="en">
 				<head>
 					<meta charset="utf-8">
-					<title>' . DEFAULT_PAGE_TITLE . ' | Poll Creator</title>
-					<meta name="description" content="Create Polls for Free, Easily!">
+					<title>' . $this->page_title . ' | '.DEFAULT_SITE_NAME.'</title>
+					<meta name="description" content="'.META_DESCRIPTION.'">
 					<meta name="author" content="Fog Productions">
 					<link rel="shortcut icon" href="assets/ico/favicon.png">
 					<link href="'. CSS_PATH .'bootstrap'. CSS_EXTENSION .'" rel="stylesheet">
@@ -79,18 +79,19 @@
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
 			          </button>
-			          <a class="brand" href="'.SITE_URL.'index.php"><img src="'.IMAGE_PATH.'logo.png" width="300px" height="25px" alt="logo"></a>
+			          <a class="brand" href="'.SITE_URL.'index.php">'.DEFAULT_SITE_NAME.'</a>
 			          <div class="nav-collapse collapse">
-			            <ul class="nav">
-			              <li class="active"><a href="'.SITE_URL.'index.php">Home</a></li>
-			              <li><a href="#about">About</a></li>
-			              <li><a href="#contact">Contact</a></li>
-			            </ul>
-		          		<div class="pull-right">';
-						$this->displayRightHeader();
-	          			echo '
-          					</div>
-			          </div><!--/.nav-collapse -->
+			            <ul class="nav">';
+			              echo ($this->page_title == "Song Request") ? '<li class="active"><a href="'.SITE_URL.'index.php">Home</a></li>' : '<li><a href="'.SITE_URL.'index.php">Home</a></li>';
+			              echo ($this->page_title == "About") ? '<li class="active"><a href="'.HTML_PATH.'footer/about.php">About</a></li>' : '<li><a href="'.HTML_PATH.'footer/about.php">About</a></li>';
+			              echo ($this->page_title == "Contact") ? '<li class="active"><a href="'.HTML_PATH.'footer/contact.php">Contact</a></li>' : '<li><a href="'.HTML_PATH.'footer/contact.php">Contact</a></li>';
+			            echo '</ul>';
+		          		if(LOGIN_REGISTER) {
+		          			echo '<div class="pull-right">';
+                        	$this->displayRightHeader();
+	          				echo '</div>';
+          				    }
+			          echo '</div><!--/.nav-collapse -->
 			        </div>
 			        </div>
 				</div>';
@@ -116,7 +117,7 @@
 			
 		}
 		
-		private function displayBody() {
+			private function displayBody() {
 			if($this->privilege == 0) {
 				$this->displayContent();
 			}
@@ -127,7 +128,8 @@
 				$this->html = $this->alert->displayError("Permission Denied");
 				$this->displayContent();
 			}
-			$this->displayModals();
+			if(LOGIN_REGISTER)
+				$this->displayModals();
 		}
 		
 		private function displayContent() {
@@ -200,14 +202,21 @@
 							<a class="brand" href="index.php"><img id="footer-img" src="'.IMAGE_PATH.'logo.png" width="300px" height="25px" alt="logo"></a>
 						</div>
 						<div id="footer-text" class="span12 text-center">
-							<a href="'.HTML_PATH.'footer/about.php">About</a> | <a href="'.HTML_PATH.'footer/contact.php">Contact</a>		
+							<a href="'.SITE_URL.'index.php">Home</a> | <a href="'.HTML_PATH.'footer/about.php">About</a> | <a href="'.HTML_PATH.'footer/contact.php">Contact</a><br/>
+							Copyright '. date("Y") .' Fog Productions (Justin)
 						</div>
 							
 					</div>
 				</div>
 			</div>
-				<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+				<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 				<script type="text/javascript" src="'. JAVASCRIPT_PATH .'bootstrap'. JAVASCRIPT_EXTENSION .'"></script>
+				<script type="text/javascript" src="'. JAVASCRIPT_PATH .'jquery-requiredstar-plugin'. JAVASCRIPT_EXTENSION .'"></script>
+				<script type="text/javascript">
+								$(function() {
+								  $(\'input, textarea\').requiredStar();
+								});
+		  		</script>
 				</div>
 				</body>	
 				</html>';

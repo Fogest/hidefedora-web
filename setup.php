@@ -2,9 +2,14 @@
 	session_start();
 	require_once ("phplib/config.php");
 	
-	include_once ("phplib/Database.php");
-	
 	include_once ("phplib/Alert.php");
+	$alert = new Alert();
+	
+	include_once ("phplib/Database.php");
+
+	
+	include_once ("phplib/Email.php");
+	$email = new Email();
 	
 	include_once ("phplib/page.php");
 	
