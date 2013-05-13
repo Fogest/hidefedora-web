@@ -18,6 +18,13 @@
 	/* Template Options */
 	define("LOGIN_REGISTER", true); // Whether to use a login/register system.
 	
+	//Comment the header lines to use a text based header logo instead of using an image.
+	define("LOGO_WIDTH_HEADER",200);
+	define("LOGO_HEIGHT_HEADER",50);
+	
+	define("LOGO_WIDTH_FOOTER",200);
+	define("LOGO_HEIGHT_FOOTER",50);
+	
 	
 	/* Database */
 	define("DB_HOSTNAME", "localhost");

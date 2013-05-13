@@ -78,9 +78,13 @@
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
-			          </button>
-			          <a class="brand" href="'.SITE_URL.'index.php">'.DEFAULT_SITE_NAME.'</a>
-			          <div class="nav-collapse collapse">
+			          </button>';
+					  if(isset(LOGO_WIDTH_HEADER))
+						echo '<a class="brand" href="'.SITE_URL.'index.php"><img id="header-img" src="'.IMAGE_PATH.'logo.png" width="'.LOGO_WIDTH_FOOTER.'" height="'.LOGO_HEIGHT_FOOTER.'" alt="'.DEFAULT_SITE_NAME.'"></a>';
+					  else
+						echo '<a class="brand" href="'.SITE_URL.'index.php">'.DEFAULT_SITE_NAME.'</a>';
+			          echo '
+					  <div class="nav-collapse collapse">
 			            <ul class="nav">';
 			              echo ($this->page_title == "Song Request") ? '<li class="active"><a href="'.SITE_URL.'index.php">Home</a></li>' : '<li><a href="'.SITE_URL.'index.php">Home</a></li>';
 			              echo ($this->page_title == "About") ? '<li class="active"><a href="'.HTML_PATH.'footer/about.php">About</a></li>' : '<li><a href="'.HTML_PATH.'footer/about.php">About</a></li>';
@@ -199,7 +203,7 @@
 					<hr/>
 					<div class="row">
 						<div class="span12 text-center">
-							<a class="brand" href="index.php"><img id="footer-img" src="'.IMAGE_PATH.'logo.png" width="300px" height="25px" alt="logo"></a>
+							<a class="brand" href="index.php"><img id="footer-img" src="'.IMAGE_PATH.'logo.png" width="'.LOGO_WIDTH_FOOTER.'" height="'.LOGO_HEIGHT_FOOTER.'" alt="logo"></a>
 						</div>
 						<div id="footer-text" class="span12 text-center">
 							<a href="'.SITE_URL.'index.php">Home</a> | <a href="'.HTML_PATH.'footer/about.php">About</a> | <a href="'.HTML_PATH.'footer/contact.php">Contact</a><br/>
