@@ -79,7 +79,7 @@
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
 			          </button>';
-					  if(isset(LOGO_WIDTH_HEADER))
+					  if(LOGO_WIDTH_HEADER > 0)
 						echo '<a class="brand" href="'.SITE_URL.'index.php"><img id="header-img" src="'.IMAGE_PATH.'logo.png" width="'.LOGO_WIDTH_FOOTER.'" height="'.LOGO_HEIGHT_FOOTER.'" alt="'.DEFAULT_SITE_NAME.'"></a>';
 					  else
 						echo '<a class="brand" href="'.SITE_URL.'index.php">'.DEFAULT_SITE_NAME.'</a>';
