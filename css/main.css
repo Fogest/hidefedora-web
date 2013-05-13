@@ -1,3 +1,6 @@
+body {
+	padding-bottom:10px;
+}
 #site {
 	width: 80%;
 	margin: auto;
@@ -36,7 +39,7 @@ ul {
 .center .radio {
 	display:inline-block;	
 }
-input[type=text].required, input[type=password].required, textarea.required {
+input[type=text].required, input[type=password].required, textarea.required, input[type=email].required {
     background: white url(../img/required_star.png) no-repeat 100% 50%;
 }
 
