@@ -18,7 +18,7 @@
 	/* Template Options */
 	define("LOGIN_REGISTER", true); // Whether to use a login/register system.
 	
-	//Comment the header lines to use a text based header logo instead of using an image.
+	//Change height and width of header to 0 to use text based display.
 	define("LOGO_WIDTH_HEADER",200);
 	define("LOGO_HEIGHT_HEADER",50);
 	
