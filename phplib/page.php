@@ -146,7 +146,7 @@
 			echo '</div>';
 		}
 		private function displayModals() {
-			if(!isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == false) {
+			if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] == false) {
 			//LOGIN MODAL
 			echo '<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
 			      <div class="modal-header">
