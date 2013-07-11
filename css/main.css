@@ -1,5 +1,11 @@
+@import url(http://fonts.googleapis.com/css?family=Expletus+Sans);
+@import url(http://fonts.googleapis.com/css?family=Archivo+Black);
 body {
 	padding-bottom:10px;
+	font-family: 'Expletus Sans', cursive;
+}
+h1,h2,h3,a.brand{
+	font-family: 'Archivo Black', sans-serif;
 }
 #site {
 }

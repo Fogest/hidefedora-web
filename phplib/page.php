@@ -88,8 +88,7 @@
 			          echo '
 					  <div class="nav-collapse collapse">
 			            <ul class="nav">';
-			              echo ($this->page_title == "Song Request") ? '<li class="active"><a href="'.SITE_URL.'index.php">Home</a></li>' : '<li><a href="'.SITE_URL.'index.php">Home</a></li>';
-			              echo ($this->page_title == "Approved Songs") ? '<li class="active"><a href="'.SITE_URL.'approved.php">Approved</a></li>' : '<li><a href="'.SITE_URL.'approved.php">Approved</a></li>';
+			              echo ($this->page_title == "Home") ? '<li class="active"><a href="'.SITE_URL.'index.php">Home</a></li>' : '<li><a href="'.SITE_URL.'index.php">Home</a></li>';
 			              echo ($this->page_title == "About") ? '<li class="active"><a href="'.HTML_PATH.'footer/about.php">About</a></li>' : '<li><a href="'.HTML_PATH.'footer/about.php">About</a></li>';
 			              echo ($this->page_title == "Contact") ? '<li class="active"><a href="'.HTML_PATH.'footer/contact.php">Contact</a></li>' : '<li><a href="'.HTML_PATH.'footer/contact.php">Contact</a></li>';
 			            echo '</ul>';
