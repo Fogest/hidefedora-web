@@ -3,3 +3,5 @@ phplib/config.php
 .buildpath
 .settings
 .project
+.htaccess
+google_analytics_auto.js
