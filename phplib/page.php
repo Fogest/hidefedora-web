@@ -203,11 +203,13 @@
 			<div class="container">
 				<div id="footer">
 					<hr/>
-					<div class="row">
-						<div class="span12 text-center">
+					<div class="row">';
+						if (LOGO_WIDTH_FOOTER !=0 || LOGO_HEIGHT_FOOTER != 0) {
+                        echo '<div class="span12 text-center">
 							<a class="brand" href="index.php"><img id="footer-img" src="'.IMAGE_PATH.'logo.png" width="'.LOGO_WIDTH_FOOTER.'" height="'.LOGO_HEIGHT_FOOTER.'" alt="logo"></a>
-						</div>
-						<div id="footer-text" class="span12 text-center">
+						</div>';
+                        }
+						echo '<div id="footer-text" class="span12 text-center">
 							<a href="'.SITE_URL.'index.php">Home</a> | <a href="'.HTML_PATH.'footer/about.php">About</a> | <a href="'.HTML_PATH.'footer/contact.php">Contact</a><br/>
 							Copyright '. date("Y") .' Fog Productions (Justin)
 						</div>
