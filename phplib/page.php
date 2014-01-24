@@ -155,7 +155,7 @@ class Page
     private function displayContent ()
     {
         echo '<div id="mainContent" class="container">';
-        echo '<h1>' . $this->page_title . '</h1><hr/>';
+        echo '<h1>' . $this->page_header . '</h1><hr/>';
         echo $this->html;
         echo '</div>';
     }
