@@ -3,6 +3,7 @@
 body {
 	padding-bottom:10px;
 	font-family: 'Expletus Sans', cursive;
+	background-image: url('bg/stardust.png');
 }
 h1,h2,h3,a.brand{
 	font-family: 'Archivo Black', sans-serif;
