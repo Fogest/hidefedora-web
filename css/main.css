@@ -65,7 +65,6 @@ textarea.required {
 input[type=text].valid,input[type=password].valid,textarea.valid {
 	background-image: none;
 }
-<<<<<<< HEAD
 #recaptcha_area
 {
    margin:0 auto !important;
@@ -75,4 +74,3 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 #recaptcha_area {
 	margin: 0 auto !important;
 }
->>>>>>> 876ad2a9a79d854f30d9b2c9d3d0a6b53e273bb3
