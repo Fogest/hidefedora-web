@@ -2,7 +2,7 @@
 include_once ("../../setup.php");
 
 $page->page_title = 'Contact';
-$page->page_header = 'Contact';
+$page->page_header = 'test';
 
 if (isset($_POST['name_contact'])) {
     require_once ('../../phplib/recaptchalib.php');
@@ -28,18 +28,11 @@ if (isset($_POST['name_contact'])) {
         $errors[] = "No message inputed";
     
     if (! isset($errors) && ! (count($errors) > 0)) {
-        $mail = new PHPMailer();
-        $mail->SetFrom('admin@jhvisser.com', 'Justin');
-        $mail->AddReplyTo($_POST['emailAddress_Request'], 
-                $_POST['name_contact']);
-        $mail->AddAddress('fogestjv@gmail.com', 'Justin');
-        $mail->Subject = 'Contact Form Message';
-        $mail->Body = $_POST['message_contact'];
-        $mail->Body .= '</br>From ' . $_POST['email_contact'] . '';
-        $mail->AltBody = $_POST['message_contact'];
-        $mail->AltBody .= ' - From ' . $_POST['email_contact'] . '';
+        $mail = new Email();
         
-        if (! $mail->Send()) {
+        if (! $mail->sendContactMail('fogestjv@gmail.com', 'Contact Form', 
+                $_POST['message_contact'], $_POST['email_contact'], 
+                $_POST['name_contact'])) {
             $page->html .= $alert->displayError("Error sending email!");
         } else {
             $page->html .= $alert->displaySuccess("Yay! Submission successful!");

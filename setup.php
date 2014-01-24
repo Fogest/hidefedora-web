@@ -7,6 +7,8 @@ $alert = new Alert();
 
 include_once ("phplib/Database.php");
 
+include_once ("phplib/Email.php");
+
 include_once ("phplib/mail/class.phpmailer.php");
 
 include_once ("phplib/page.php");
