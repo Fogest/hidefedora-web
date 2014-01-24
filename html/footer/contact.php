@@ -6,7 +6,7 @@ $page->page_header = 'Contact';
 
 if (isset($_POST['name_contact'])) {
     require_once ('../../phplib/recaptchalib.php');
-    $privatekey = "6LeOqd0SAAAAAMSCQZGyJDeJtnvddZOW9uxJFzGP";
+    $privatekey = "6LeJf-0SAAAAAIbFlnjv1KCyGBmj4h3dpQ7N_fEP";
     $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], 
             $_POST["recaptcha_challenge_field"], 
             $_POST["recaptcha_response_field"]);
@@ -29,7 +29,7 @@ if (isset($_POST['name_contact'])) {
     
     if (! isset($errors) && ! (count($errors) > 0)) {
         $mail = new PHPMailer();
-        $mail->SetFrom('jhvisser@sympatico.ca', 'Justin');
+        $mail->SetFrom('admin@jhvisser.com', 'Justin');
         $mail->AddReplyTo($_POST['emailAddress_Request'], 
                 $_POST['name_contact']);
         $mail->AddAddress('fogestjv@gmail.com', 'Justin');
@@ -37,10 +37,12 @@ if (isset($_POST['name_contact'])) {
         $mail->Body = $_POST['message_contact'];
         $mail->Body .= '</br>From ' . $_POST['email_contact'] . '';
         $mail->AltBody = $_POST['message_contact'];
-        $mail->AltBody .= 'From ' . $_POST['email_contact'] . '';
+        $mail->AltBody .= ' - From ' . $_POST['email_contact'] . '';
         
         if (! $mail->Send()) {
-            $page->html .= $alert->DisplayError("Error sending email!");
+            $page->html .= $alert->displayError("Error sending email!");
+        } else {
+            $page->html .= $alert->displaySuccess("Yay! Submission successful!");
         }
     } else {
         $page->html = "";
@@ -55,8 +57,7 @@ if (isset($_POST['name_contact'])) {
 			<div class="well well-small">
 			<h3>Fill in the form below, and I will get a hold of you shortly.</h3>
 			<hr/>
-			<form name="contact" action="' .
-             HTML_PATH .
+			<form name="contact" action="' . HTML_PATH .
              'footer/contact.php" method="post">
 					<label>Name</label>
 					<input type="text" class="input-xlarge required" placeholder="Name" name="name_contact" maxlength="230">
@@ -65,7 +66,7 @@ if (isset($_POST['name_contact'])) {
 					<label>Message</label>
 					<textarea rows="3" class="input-xlarge required" name="message_contact"></textarea><br/>';
     require_once ('../../phplib/recaptchalib.php');
-    $publickey = "6LeOqd0SAAAAAOqVOY75fCPmVUdop2QJtc1HRVUV"; // you got this
+    $publickey = "6LeJf-0SAAAAAD3NWdzJ-jcArmbPGCS1Mol6fL1X"; // you got this
                                                              // from the signup
                                                              // page
     $page->html .= recaptcha_get_html($publickey);
