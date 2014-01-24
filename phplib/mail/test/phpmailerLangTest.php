@@ -11,7 +11,6 @@
  * @copyright 2004 - 2009 Andy Prevost
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-
 require 'PHPUnit/Autoload.php';
 
 /**
@@ -20,9 +19,11 @@ require 'PHPUnit/Autoload.php';
  */
 class phpmailerLangTest extends PHPUnit_Framework_TestCase
 {
+
     /**
      * Holds the default phpmailer instance.
      * @private
+     * 
      * @var PHPMailer
      */
     public $Mail;
@@ -30,6 +31,7 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Holds the SMTP mail host.
      * @public
+     * 
      * @var string
      */
     public $Host = "";
@@ -37,6 +39,7 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Holds the change log.
      * @private
+     * 
      * @var string[]
      */
     public $ChangeLog = array();
@@ -44,11 +47,13 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Holds the note log.
      * @private
+     * 
      * @var string[]
      */
     public $NoteLog = array();
 
     /**
+     *
      * @var string Default include path
      */
     public $INCLUDE_DIR = '../';
@@ -56,15 +61,14 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Run before each test is started.
      */
-    function setUp()
+    function setUp ()
     {
-
         if (file_exists('./testbootstrap.php')) {
-            include './testbootstrap.php'; //Overrides go in here
+            include './testbootstrap.php'; // Overrides go in here
         }
         require_once $this->INCLUDE_DIR . 'class.phpmailer.php';
-        $this->Mail = new PHPMailer;
-
+        $this->Mail = new PHPMailer();
+        
         $this->Mail->Priority = 3;
         $this->Mail->Encoding = "8bit";
         $this->Mail->CharSet = "iso-8859-1";
@@ -96,18 +100,19 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
         $this->Mail->PluginDir = $this->INCLUDE_DIR;
         $this->Mail->AddReplyTo("no_reply@phpmailer.example.com", "Reply Guy");
         $this->Mail->Sender = "unit_test@phpmailer.example.com";
-
+        
         if (strlen($this->Mail->Host) > 0) {
             $this->Mail->Mailer = "smtp";
         } else {
             $this->Mail->Mailer = "mail";
             $this->Mail->Sender = "unit_test@phpmailer.example.com";
         }
-
+        
         if (array_key_exists('mail_to', $_REQUEST)) {
             $this->SetAddress($_REQUEST['mail_to'], 'Test User', 'to');
         }
-        if (array_key_exists('mail_cc', $_REQUEST) and strlen($_REQUEST['mail_cc']) > 0) {
+        if (array_key_exists('mail_cc', $_REQUEST) and
+                 strlen($_REQUEST['mail_cc']) > 0) {
             $this->SetAddress($_REQUEST['mail_cc'], 'Carbon User', 'cc');
         }
     }
@@ -115,7 +120,7 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Run after each test is completed.
      */
-    function tearDown()
+    function tearDown ()
     {
         // Clean global variables
         $this->Mail = null;
@@ -123,18 +128,19 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
         $this->NoteLog = array();
     }
 
-
     /**
      * Build the body of the message in the appropriate format.
      * @private
-     * @returns void
+     * 
+     * @return s void
      */
-    function BuildBody()
+    function BuildBody ()
     {
         $this->CheckChanges();
-
+        
         // Determine line endings for message
-        if ($this->Mail->ContentType == "text/html" || strlen($this->Mail->AltBody) > 0) {
+        if ($this->Mail->ContentType == "text/html" ||
+                 strlen($this->Mail->AltBody) > 0) {
             $eol = "<br/>";
             $bullet = "<li>";
             $bullet_start = "<ul>";
@@ -145,19 +151,19 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
             $bullet_start = "";
             $bullet_end = "";
         }
-
+        
         $ReportBody = "";
-
+        
         $ReportBody .= "---------------------" . $eol;
         $ReportBody .= "Unit Test Information" . $eol;
         $ReportBody .= "---------------------" . $eol;
         $ReportBody .= "phpmailer version: " . $this->Mail->Version . $eol;
         $ReportBody .= "Content Type: " . $this->Mail->ContentType . $eol;
-
+        
         if (strlen($this->Mail->Host) > 0) {
             $ReportBody .= "Host: " . $this->Mail->Host . $eol;
         }
-
+        
         // If attachments then create an attachment list
         $attachments = $this->Mail->GetAttachments();
         if (count($attachments) > 0) {
@@ -170,32 +176,33 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
             }
             $ReportBody .= $bullet_end . $eol;
         }
-
+        
         // If there are changes then list them
         if (count($this->ChangeLog) > 0) {
             $ReportBody .= "Changes" . $eol;
             $ReportBody .= "-------" . $eol;
-
+            
             $ReportBody .= $bullet_start;
-            for ($i = 0; $i < count($this->ChangeLog); $i++) {
-                $ReportBody .= $bullet . $this->ChangeLog[$i][0] . " was changed to [" .
-                    $this->ChangeLog[$i][1] . "]" . $eol;
+            for ($i = 0; $i < count($this->ChangeLog); $i ++) {
+                $ReportBody .= $bullet . $this->ChangeLog[$i][0] .
+                         " was changed to [" . $this->ChangeLog[$i][1] . "]" .
+                         $eol;
             }
             $ReportBody .= $bullet_end . $eol . $eol;
         }
-
+        
         // If there are notes then list them
         if (count($this->NoteLog) > 0) {
             $ReportBody .= "Notes" . $eol;
             $ReportBody .= "-----" . $eol;
-
+            
             $ReportBody .= $bullet_start;
-            for ($i = 0; $i < count($this->NoteLog); $i++) {
+            for ($i = 0; $i < count($this->NoteLog); $i ++) {
                 $ReportBody .= $bullet . $this->NoteLog[$i] . $eol;
             }
             $ReportBody .= $bullet_end;
         }
-
+        
         // Re-attach the original body
         $this->Mail->Body .= $eol . $eol . $ReportBody;
     }
@@ -203,9 +210,10 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
     /**
      * Check which default settings have been changed for the report.
      * @private
-     * @returns void
+     * 
+     * @return s void
      */
-    function CheckChanges()
+    function CheckChanges ()
     {
         if ($this->Mail->Priority != 3) {
             $this->AddChange("Priority", $this->Mail->Priority);
@@ -238,36 +246,42 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
 
     /**
      * Add a changelog entry.
+     * 
      * @access private
-     * @param string $sName
-     * @param string $sNewValue
+     * @param string $sName            
+     * @param string $sNewValue            
      * @return void
      */
-    function AddChange($sName, $sNewValue)
+    function AddChange ($sName, $sNewValue)
     {
-        $this->ChangeLog[] = array($sName, $sNewValue);
+        $this->ChangeLog[] = array(
+                $sName,
+                $sNewValue
+        );
     }
 
     /**
      * Adds a simple note to the message.
      * @public
-     * @param string $sValue
+     * 
+     * @param string $sValue            
      * @return void
      */
-    function AddNote($sValue)
+    function AddNote ($sValue)
     {
         $this->NoteLog[] = $sValue;
     }
 
     /**
      * Adds all of the addresses
+     * 
      * @access public
-     * @param string $sAddress
-     * @param string $sName
-     * @param string $sType
+     * @param string $sAddress            
+     * @param string $sName            
+     * @param string $sType            
      * @return boolean
      */
-    function SetAddress($sAddress, $sName = '', $sType = 'to')
+    function SetAddress ($sAddress, $sName = '', $sType = 'to')
     {
         switch ($sType) {
             case 'to':
@@ -279,16 +293,16 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
         }
         return false;
     }
-
-    /////////////////////////////////////////////////
+    
+    // ///////////////////////////////////////////////
     // UNIT TESTS
-    /////////////////////////////////////////////////
-
+    // ///////////////////////////////////////////////
+    
     /**
      * Test language files for missing and excess translations
      * All languages are compared with English
      */
-    function test_Translations()
+    function test_Translations ()
     {
         $this->Mail->SetLanguage('en');
         $definedStrings = $this->Mail->GetTranslations();
@@ -298,18 +312,23 @@ class phpmailerLangTest extends PHPUnit_Framework_TestCase
                 continue;
             }
             $matches = array();
-            //Only look at language files, ignore anything else in there
-            if (preg_match('/^phpmailer\.lang-([a-z_]{2,})\.php$/', $fileInfo->getFilename(), $matches)) {
-                $lang = $matches[1]; //Extract language code
-                $PHPMAILER_LANG = array(); //Language strings get put in here
-                include $fileInfo->getPathname(); //Get language strings
-                $missing = array_diff(array_keys($definedStrings), array_keys($PHPMAILER_LANG));
-                $extra = array_diff(array_keys($PHPMAILER_LANG), array_keys($definedStrings));
-                if (!empty($missing)) {
-                    $err .= "\nMissing translations in $lang: " . implode(', ', $missing);
+            // Only look at language files, ignore anything else in there
+            if (preg_match('/^phpmailer\.lang-([a-z_]{2,})\.php$/', 
+                    $fileInfo->getFilename(), $matches)) {
+                $lang = $matches[1]; // Extract language code
+                $PHPMAILER_LANG = array(); // Language strings get put in here
+                include $fileInfo->getPathname(); // Get language strings
+                $missing = array_diff(array_keys($definedStrings), 
+                        array_keys($PHPMAILER_LANG));
+                $extra = array_diff(array_keys($PHPMAILER_LANG), 
+                        array_keys($definedStrings));
+                if (! empty($missing)) {
+                    $err .= "\nMissing translations in $lang: " .
+                             implode(', ', $missing);
                 }
-                if (!empty($extra)) {
-                    $err .= "\nExtra translations in $lang: " . implode(', ', $extra);
+                if (! empty($extra)) {
+                    $err .= "\nExtra translations in $lang: " .
+                             implode(', ', $extra);
                 }
             }
         }
