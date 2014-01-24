@@ -6,7 +6,7 @@ class Email
     public function __construct ()
     {}
 
-    public function sendContactMail ($to, $subject, $message, $from, $fromName)
+    public function sendContactMail ($to, $toName, $subject, $message, $from, $fromName)
     {
         $mail = new PHPMailer();
         $mail->SetFrom('admin@jhvisser.com', 'Justin');

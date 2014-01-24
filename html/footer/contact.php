@@ -27,10 +27,10 @@ if (isset($_POST['name_contact'])) {
              strlen(trim($_POST['message_contact'])) == 0)
         $errors[] = "No message inputed";
     
-    if (! isset($errors) && ! (count($errors) > 0)) {
+    if (! isset($errors)) {
         $mail = new Email();
         
-        if (! $mail->sendContactMail('fogestjv@gmail.com', 'Contact Form', 
+        if (! $mail->sendContactMail('fogestjv@gmail.com', 'Justin', 'Contact Form', 
                 $_POST['message_contact'], $_POST['email_contact'], 
                 $_POST['name_contact'])) {
             $page->html .= $alert->displayError("Error sending email!");
