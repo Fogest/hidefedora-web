@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 include_once ("../../setup.php");
 
@@ -49,3 +50,13 @@ bibendum euismod.        </p>    ";
 
 $page->display();
 ?>
+=======
+<?php
+include_once ("../../setup.php");
+
+$page->page_title = 'About';
+$page->page_header = 'About';
+
+$page->display();
+?>
+>>>>>>> 876ad2a9a79d854f30d9b2c9d3d0a6b53e273bb3

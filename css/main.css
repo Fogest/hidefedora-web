@@ -1,19 +1,25 @@
 @import url(http://fonts.googleapis.com/css?family=Expletus+Sans);
+
 @import url(http://fonts.googleapis.com/css?family=Archivo+Black);
+
 body {
-	padding-bottom:10px;
+	padding-bottom: 10px;
 	font-family: 'Expletus Sans', cursive;
 	background-image: url('bg/stardust.png');
 }
-h1,h2,h3,a.brand{
+
+h1,h2,h3,a.brand {
 	font-family: 'Archivo Black', sans-serif;
 }
+
 #site {
+	
 }
 
 #mainContent {
 	min-height: 500px;
 }
+
 .navbar-fixed-top {
 	position: relative;
 }
@@ -21,38 +27,52 @@ h1,h2,h3,a.brand{
 hr {
 	margin-top: 10px;
 }
-.brand img {
 
+.brand img {
+	
 }
+
 #footer-img {
-	margin:0 auto;
+	margin: 0 auto;
 }
-#footer-img, #footer-text {
+
+#footer-img,#footer-text {
 	padding-bottom: 2px;
 }
+
 ul {
 	list-style-position: inside;
 }
 
 .center {
 	text-align: center;
-	margin:0 auto;
+	margin: 0 auto;
 }
+
 .center .radio {
-	display:inline-block;	
+	display: inline-block;
 }
-input[type=text].required, input[type=password].required, textarea.required, input[type=email].required {
-    background: white url(../img/required_star.png) no-repeat 100% 50%;
+
+input[type=text].required,input[type=password].required,textarea.required,input[type=email].required
+	{
+	background: white url(../img/required_star.png) no-repeat 100% 50%;
 }
 
 textarea.required {
-    background-position: 100% 0;
+	background-position: 100% 0;
 }
 
-input[type=text].valid, input[type=password].valid, textarea.valid {
-    background-image: none;
+input[type=text].valid,input[type=password].valid,textarea.valid {
+	background-image: none;
 }
+<<<<<<< HEAD
 #recaptcha_area
 {
    margin:0 auto !important;
 }
+=======
+
+#recaptcha_area {
+	margin: 0 auto !important;
+}
+>>>>>>> 876ad2a9a79d854f30d9b2c9d3d0a6b53e273bb3
