@@ -61,17 +61,27 @@ class Page
 
     private function displayHeader ()
     {
+        header('Content-type: text/html; charset=utf-8');
         echo '<!DOCTYPE html>
 				<html lang="en">
 				<head>
 					<meta charset="utf-8">
-					<title>' . $this->page_title . ' | ' . DEFAULT_SITE_NAME . '</title>
-					<meta name="description" content="' . META_DESCRIPTION . '">
+					<title>' .
+                 $this->page_title . ' | ' . DEFAULT_SITE_NAME . '</title>
+					<meta name="description" content="' .
+                 META_DESCRIPTION .
+                 '">
 					<meta name="author" content="Fog Productions">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<META HTTP-EQUIV="EXPIRES" CONTENT="Fri, 24 Jan 2015 00:00:01 GMT">
+					<link href="http://fonts.googleapis.com/css?family=Expletus+Sans" rel="stylesheet" type="text/css">
+					<link href="http://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet" type="text/css">      
 					<link rel="shortcut icon" href="assets/ico/favicon.png">
-					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
-					<link href="' . CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
+					<link href="' .
+                 CSS_PATH . 'bootstrap' . CSS_EXTENSION .
+                 '" rel="stylesheet">
+					<link href="' .
+                 CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH . 'main.css" rel="stylesheet">
 				</head>
 				<body>
@@ -126,8 +136,10 @@ class Page
 					    <span class="caret"></span>
 					  </a>
 					  <ul class="dropdown-menu">
-					    <li><a href="' . HTML_PATH . 'user/member.php">Profile</a></li>
-			    		<li><a href="' . HTML_PATH . 'user/settings.php">Settings</a></li>
+					    <li><a href="' .
+                     HTML_PATH . 'user/member.php">Profile</a></li>
+			    		<li><a href="' .
+                     HTML_PATH . 'user/settings.php">Settings</a></li>
     					<li><a href="' . SITE_URL . 'logout.php">Logout</a></li>
 					  </ul>
 					</div>';
@@ -170,7 +182,8 @@ class Page
 				    <h3>Login</h3>
 				  </div>
 				  <div class="modal-body">
-				    <form name="login" action="' . SITE_URL . 'index.php" method="post">
+				    <form name="login" action="' .
+                     SITE_URL . 'index.php" method="post">
 						<label>Username/Email</label>';
             if (isset($_POST['username']))
                 echo '<input type="text" placeholder="Username/Email" value="' .
@@ -194,7 +207,8 @@ class Page
 		    <h3>Register</h3>
 		  </div>
 		  <div class="modal-body">
-		    <form name="login" action="' . SITE_URL . 'index.php" method="post">
+		    <form name="login" action="' .
+                     SITE_URL . 'index.php" method="post">
 				<label>Username/Email</label>';
             if (isset($_POST['username']))
                 echo '<input type="text" placeholder="Username/Email" value="' .
@@ -244,13 +258,6 @@ class Page
 		        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 				<script type="text/javascript" src="' . JAVASCRIPT_PATH . 'bootstrap' .
                  JAVASCRIPT_EXTENSION . '"></script>
-				<script type="text/javascript" src="' . JAVASCRIPT_PATH .
-                 'jquery-requiredstar-plugin' . JAVASCRIPT_EXTENSION . '"></script>
-				<script type="text/javascript">
-								$(function() {
-								  $(\'input, textarea\').requiredStar();
-								});
-		  		</script>
 				</div>
 				</body>	
 				</html>';
