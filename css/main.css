@@ -18,6 +18,11 @@ h1,h2,h3,a.brand {
 
 #mainContent {
 	min-height: 500px;
+	background-color: #F5F5F5;
+	border: 2px solid;
+	border-radius: 15px;
+	padding: 15px;
+	margin-top: 6px;
 }
 
 .navbar-fixed-top {
@@ -38,6 +43,9 @@ hr {
 
 #footer-img,#footer-text {
 	padding-bottom: 2px;
+}
+#footer-text {
+	color: white;
 }
 
 ul {
@@ -73,4 +81,8 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 
 #recaptcha_area {
 	margin: 0 auto !important;
+}
+
+.well {
+	background-color: #F0F0F0;
 }

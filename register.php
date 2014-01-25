@@ -26,7 +26,7 @@ if (! isset($email))
 if ($password != $passwordConfirm)
     $errors .= "Passwords do not match<br/>";
 
-if (! preg_match('\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b', $email))
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
     $errors .= "Email is not valid!";
 if (! empty($errors))
     die($errors);
