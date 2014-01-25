@@ -24,9 +24,16 @@ h1,h2,h3,a.brand {
 	padding: 15px;
 	margin-top: 6px;
 }
-
-.navbar-fixed-top {
-	position: relative;
+.navbar {
+	width: 1200px;
+	margin: auto;
+	border: 2px solid;
+	border-radius: 15px;
+	margin-top: 5px;
+	background-color: rgba(3, 3, 3, 0.46);
+}
+.navbar-inside {
+	padding: 0px 10px 0px 10px;
 }
 
 hr {

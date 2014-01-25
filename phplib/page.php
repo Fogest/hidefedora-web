@@ -76,8 +76,8 @@ class Page
 				</head>
 				<body>
 				<div id="site">
-				<div class="navbar navbar-inverse navbar-fixed-top">
-			        <div class="navbar-inner">
+				<div class="navbar navbar-inverse">
+			        <div class="navbar-inside">
 			        <div class="container">
 			          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 			            <span class="icon-bar"></span>
