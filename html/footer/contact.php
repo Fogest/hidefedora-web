@@ -50,14 +50,14 @@ if (isset($_POST['name_contact'])) {
 			<div class="well well-small">
 			<h3>Fill in the form below, and I will get a hold of you shortly.</h3>
 			<hr/>
-			<form name="contact" action="' . HTML_PATH .
+			<form id="contactForm" name="contact" action="' . HTML_PATH .
              'footer/contact.php" method="post">
 					<label>Name</label>
-					<input type="text" class="input-xlarge required" placeholder="Name" name="name_contact" maxlength="230">
+					<input type="text" class="input-xlarge" placeholder="Name" name="name_contact" maxlength="230" required>
 					<label>Email</label>
-					<input type="email" class="input-xlarge required" placeholder="Email" name="email_contact" maxlength="230">
+					<input type="email" class="input-xlarge" placeholder="Email" name="email_contact" maxlength="230" required>
 					<label>Message</label>
-					<textarea rows="3" class="input-xlarge required" name="message_contact"></textarea><br/>';
+					<textarea rows="3" class="input-xlarge" name="message_contact" required></textarea><br/>';
     require_once ('../../phplib/recaptchalib.php');
     $publickey = "6LeJf-0SAAAAAD3NWdzJ-jcArmbPGCS1Mol6fL1X"; // you got this
                                                              // from the signup
