@@ -82,10 +82,11 @@ class Page
                  '" rel="stylesheet">
 					<link href="' .
                  CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
-					<link href="' . CSS_PATH . 'main.css" rel="stylesheet">
+					<link href="' . CSS_PATH .
+                 'main.css" rel="stylesheet">
 				</head>
 				<body>
-				<div id="site">
+				<div id="site"><div id="pageTitle" style="display: none;">', $this->page_title, '</div>
 				<div class="navbar navbar-inverse">
 			        <div class="navbar-inside">
 			        <div class="container">
@@ -105,17 +106,13 @@ class Page
                      DEFAULT_SITE_NAME . '</a>';
         echo '
 					  <div class="nav-collapse collapse">
-			            <ul class="nav">';
-        echo ($this->page_title == "Home") ? '<li class="active"><a href="' .
-                 SITE_URL . 'index.php">Home</a></li>' : '<li><a href="' .
-                 SITE_URL . 'index.php">Home</a></li>';
-        echo ($this->page_title == "About") ? '<li class="active"><a href="' .
-                 HTML_PATH . 'footer/about.php">About</a></li>' : '<li><a href="' .
-                 HTML_PATH . 'footer/about.php">About</a></li>';
-        echo ($this->page_title == "Contact") ? '<li class="active"><a href="' .
-                 HTML_PATH . 'footer/contact.php">Contact</a></li>' : '<li><a href="' .
-                 HTML_PATH . 'footer/contact.php">Contact</a></li>';
-        echo '</ul>';
+			            <ul class="nav">
+        <li><a href="' . SITE_URL . 'index.php">Home</a></li>
+        <li><a href="' .
+                 HTML_PATH . 'footer/about.php">About</a></li>
+        <li><a href="' .
+                 HTML_PATH . 'footer/contact.php">Contact</a></li>
+        </ul>';
         if (LOGIN_REGISTER) {
             echo '<div class="pull-right">';
             $this->displayRightHeader();
@@ -260,6 +257,17 @@ class Page
 							        $("#contactForm").validate();</script>
 				<script type="text/javascript" src="' . JAVASCRIPT_PATH . 'bootstrap' .
                  JAVASCRIPT_EXTENSION . '"></script>
+                <script type="text/javascript">
+                	$(function() {
+                		var title = $("#pageTitle").text();
+                		$("ul.nav li a").each(function(){
+                			if($(this).text() == title) {
+                				$(this).parent().addClass("active");
+                                return false;
+                			}
+                		});
+                	});
+                </script>
 				</div>
 				</body>	
 				</html>';
