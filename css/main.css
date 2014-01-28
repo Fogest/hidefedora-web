@@ -110,5 +110,5 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 }
 
 .well {
-	background-color: #F0F0F0;
+	background-color: rgba(121, 111, 111, 0.06);
 }

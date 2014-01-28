@@ -14,9 +14,15 @@ if (! $error) {
                 "Password did not match one on file!");
     } else {
         // Success
+        if (isset($_POST['rememberMe'])) {
+            $expire = time() + 60 * 60 * 24 * 30;
+            setcookie('user_id', $result[0]['user_id'], $expire);
+            setcookie('username', $result[0]['username'], $expire);
+        } else {
+            $_SESSION['user_id'] = $result[0]['user_id'];
+            $_SESSION['username'] = $result[0]['username'];
+        }
         $_SESSION['loggedIn'] = true;
-        $_SESSION['user_id'] = $result[0]['user_id'];
-        $_SESSION['username'] = $result[0]['username'];
         $_SESSION['user_level'] = $result[0]['user_level'];
         $page->html .= $alert->displaySuccess(
                 "You have been logged in successfully!");

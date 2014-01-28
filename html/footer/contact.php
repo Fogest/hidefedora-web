@@ -2,7 +2,7 @@
 include_once ("../../setup.php");
 
 $page->page_title = 'Contact';
-$page->page_header = 'test';
+$page->page_header = 'Contact';
 
 if (isset($_POST['name_contact'])) {
     require_once ('../../phplib/recaptchalib.php');

@@ -189,6 +189,7 @@ class Page
                 echo '<input type="text" placeholder="Username/Email" name="username_login">';
             echo '			<label>Password</label>
 						<input type="password" placeholder="Password" name="password_login">
+                    <label><input name="rememberMe" type="checkbox"> Remember Me?</label>
 				  </div>
 				  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -251,7 +252,7 @@ class Page
 					</div>
 				</div>
 			</div>
-				<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+				<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
                 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js">
 							        $("#contactForm").validate();</script>

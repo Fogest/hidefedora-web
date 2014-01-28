@@ -22,12 +22,8 @@ if (! isset($passwordConfirm))
     $errors .= "Password confirmation is not set<br/>";
 if (! isset($email))
     $errors .= "Email is not set<br/>";
-
 if ($password != $passwordConfirm)
     $errors .= "Passwords do not match<br/>";
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-    $errors .= "Email is not valid!";
 if (! empty($errors))
     die($errors);
 
@@ -35,7 +31,7 @@ $values['username'] = $username;
 $values['password'] = hash("sha256", $password);
 $values['email'] = $email;
 $values['account_creation_date'] = date("Y-m-d H:m:s");
-$values['account_creation_ip'] = ip2long($_SERVER['HTTP_X_FORWARDED_FOR']);
+$values['account_creation_ip'] = ip2long(getenv('REMOTE_ADDR'));
 
 $database->insert($table, $values);
 $page->html = $alert->displaySuccess("Account Created!");
