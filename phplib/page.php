@@ -66,22 +66,16 @@ class Page
 				<html lang="en">
 				<head>
 					<meta charset="utf-8">
-					<title>' .
-                 $this->page_title . ' | ' . DEFAULT_SITE_NAME . '</title>
-					<meta name="description" content="' .
-                 META_DESCRIPTION .
-                 '">
+					<title>' . $this->page_title . ' | ' . DEFAULT_SITE_NAME . '</title>
+					<meta name="description" content="' . META_DESCRIPTION . '">
 					<meta name="author" content="Fog Productions">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<META HTTP-EQUIV="EXPIRES" CONTENT="Fri, 24 Jan 2015 00:00:01 GMT">
 					<link href="http://fonts.googleapis.com/css?family=Expletus+Sans" rel="stylesheet" type="text/css">
 					<link href="http://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet" type="text/css">      
 					<link rel="shortcut icon" href="assets/ico/favicon.png">
-					<link href="' .
-                 CSS_PATH . 'bootstrap' . CSS_EXTENSION .
-                 '" rel="stylesheet">
-					<link href="' .
-                 CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
+					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
+					<link href="' . CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH .
                  'main.css" rel="stylesheet">
 				</head>
@@ -108,10 +102,8 @@ class Page
 					  <div class="nav-collapse collapse">
 			            <ul class="nav">
         <li><a href="' . SITE_URL . 'index.php">Home</a></li>
-        <li><a href="' .
-                 HTML_PATH . 'footer/about.php">About</a></li>
-        <li><a href="' .
-                 HTML_PATH . 'footer/contact.php">Contact</a></li>
+        <li><a href="' . HTML_PATH . 'footer/about.php">About</a></li>
+        <li><a href="' . HTML_PATH . 'footer/contact.php">Contact</a></li>
         </ul>';
         if (LOGIN_REGISTER) {
             echo '<div class="pull-right">';
@@ -133,10 +125,8 @@ class Page
 					    <span class="caret"></span>
 					  </a>
 					  <ul class="dropdown-menu">
-					    <li><a href="' .
-                     HTML_PATH . 'user/member.php">Profile</a></li>
-			    		<li><a href="' .
-                     HTML_PATH . 'user/settings.php">Settings</a></li>
+					    <li><a href="' . HTML_PATH . 'user/member.php">Profile</a></li>
+			    		<li><a href="' . HTML_PATH . 'user/settings.php">Settings</a></li>
     					<li><a href="' . SITE_URL . 'logout.php">Logout</a></li>
 					  </ul>
 					</div>';
@@ -163,10 +153,10 @@ class Page
 
     private function displayContent ()
     {
-        echo '<div id="mainContent" class="container">';
+        echo '<div id="mainContent" class="container"><div id="innerMain">';
         echo '<h1>' . $this->page_header . '</h1><hr/>';
         echo $this->html;
-        echo '</div>';
+        echo '</div></div>';
     }
 
     private function displayModals ()
@@ -179,8 +169,7 @@ class Page
 				    <h3>Login</h3>
 				  </div>
 				  <div class="modal-body">
-				    <form name="login" action="' .
-                     SITE_URL . 'index.php" method="post">
+				    <form name="login" action="' . SITE_URL . 'index.php" method="post">
 						<label>Username/Email</label>';
             if (isset($_POST['username']))
                 echo '<input type="text" placeholder="Username/Email" value="' .
@@ -205,8 +194,7 @@ class Page
 		    <h3>Register</h3>
 		  </div>
 		  <div class="modal-body">
-		    <form name="login" action="' .
-                     SITE_URL . 'index.php" method="post">
+		    <form name="login" action="' . SITE_URL . 'index.php" method="post">
 				<label>Username/Email</label>';
             if (isset($_POST['username']))
                 echo '<input type="text" placeholder="Username/Email" value="' .
@@ -244,7 +232,8 @@ class Page
 						</div>';
         }
         echo '<div id="footer-text" class="span12 text-center">
-							<a href="' . SITE_URL . 'index.php">Home</a> | <a href="' . HTML_PATH .
+							<a href="' .
+                 SITE_URL . 'index.php">Home</a> | <a href="' . HTML_PATH .
                  'footer/about.php">About</a> | <a href="' . HTML_PATH . 'footer/contact.php">Contact</a><br/>
 							Copyright ' . date("Y") . ' Fog Productions (Justin)
 						</div>
@@ -256,8 +245,8 @@ class Page
 		        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
                 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js">
 							        $("#contactForm").validate();</script>
-				<script type="text/javascript" src="' . JAVASCRIPT_PATH . 'bootstrap' .
-                 JAVASCRIPT_EXTENSION . '"></script>
+				<script type="text/javascript" src="' .
+                 JAVASCRIPT_PATH . 'bootstrap' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript">
                 	$(function() {
                 		var title = $("#pageTitle").text();

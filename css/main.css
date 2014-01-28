@@ -20,7 +20,6 @@ a {
 	/* 	background-color: #F5F5F5; */
 	border: 2px solid;
 	/* 	border-radius: 15px; */
-	padding: 15px;
 	margin-top: 6px;
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F5F5F5),
 		color-stop(1, #D6D6D6));
@@ -31,8 +30,11 @@ a {
 	background-image: linear-gradient(to bottom, #F5F5F5 0%, #D6D6D6 100%);
 }
 
+#innerMain {
+	padding: 15px;
+}
+
 .navbar {
-	width: 1200px;
 	margin: auto;
 	border: 2px solid;
 	/* 	border-radius: 15px; */

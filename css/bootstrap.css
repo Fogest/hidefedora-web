@@ -247,7 +247,7 @@ a:hover,a:focus {
 	margin-left: 20px;
 }
 
-.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container
+.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container
 	{
 	width: 940px;
 }
