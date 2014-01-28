@@ -7,6 +7,7 @@ body {
 h1,h2,h3,a.brand {
 	font-family: 'Archivo Black', sans-serif;
 }
+
 a {
 	color: #00AAFF;
 }
@@ -113,4 +114,18 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 
 .well {
 	background-color: rgba(121, 111, 111, 0.06);
+}
+
+@media ( min-width : 980px) {
+	.navbar .pull-right {
+		float: right;
+		margin-right: 0;
+	}
+}
+
+@media ( max-width : 979px) {
+	.navbar .pull-right {
+		float:none;
+		padding-bottom: 3px;
+	}
 }
