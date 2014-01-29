@@ -3,6 +3,7 @@ $table = "users";
 $select['username'] = $_POST['username_login'];
 $sort['user_id'] = "ASC";
 $result = $database->select($table, $select, $sort);
+$error = false;
 if (count($result) != 1) {
     $page->html .= $alert->displayError("Error locating username");
     $error = true;

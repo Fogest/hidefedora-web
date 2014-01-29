@@ -182,7 +182,7 @@ class Page
 				  </div>
 				  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				    <button type="submit" class="btn btn-primary">Login</a>
+				    <button type="submit" id="loginBtn" class="btn btn-primary">Login</a>
 				  </div>
 		    	</form>
 				</div>';
@@ -210,7 +210,7 @@ class Page
 			  </div>
 			  <div class="modal-footer">
 			    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-			    <button type="submit" class="btn btn-primary">Register</a>
+			    <button type="submit" id="registerBtn" class="btn btn-primary">Register</a>
 			  </div>
 	    	</form>
 			</div>';
@@ -256,6 +256,13 @@ class Page
                                 return false;
                 			}
                 		});
+                        $("#login").on("shown",function(){
+                            $("#loginBtn").focus();
+                        });
+                        $("#register").on("shown",function(){
+                            $("#registerBtn").focus();
+                        });
+                         
                 	});
                 </script>
 				</div>
