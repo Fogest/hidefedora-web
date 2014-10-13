@@ -1,5 +1,5 @@
 <?php
-if($_SESSION['loggedIn'] == false || !isset($_SESSION['username'])) {
+if(!isset($_SESSION['loggedIn']) || !isset($_SESSION['username'])) {
     if(isset($_COOKIE['persist'])) {
         $error = false;
         $table = "users";
