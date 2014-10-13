@@ -1,4 +1,5 @@
 <?php
+//hope this works
     if($_SESSION['loggedIn'] == false) {
         if(isset($_COOKIE['persist'])){
             $table = "users";
