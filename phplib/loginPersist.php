@@ -19,6 +19,7 @@ if($_SESSION['loggedIn'] == false || !isset($_SESSION['username'])) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['username'] = $result[0]['username'];
                 $_SESSION['user_level'] = $result[0]['user_level'];
+                $_SESSION['user_id'] = $result[0]['user_id'];
             }
             else {
                 $page->html .= $alert->displayError("Error locating username");
