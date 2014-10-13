@@ -1,11 +1,19 @@
 body {
 	padding-bottom: 10px;
 	font-family: 'Expletus Sans', cursive;
-	background-image: url('bg/stardust.png');
+	background: -webkit-linear-gradient(90deg, #085078 10%, #4290A0 
+90%);
+	background: -moz-linear-gradient(90deg, #085078 10%, #4290A0 
+90%);
+	background: -ms-linear-gradient(90deg, #085078 10%, #4290A0 
+90%);
+	background: -o-linear-gradient(90deg, #085078 10%, #4290A0 90%);
+	background: linear-gradient(90deg, #085078 10%, #4290A0 90%);
 }
 
 h1,h2,h3,a.brand {
-	font-family: 'Archivo Black', sans-serif;
+	font-family: 'Source Code Pro', ;
+	font-weight: 700;
 }
 
 a {
