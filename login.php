@@ -18,7 +18,7 @@ if (! $error) {
         if (isset($_POST['rememberMe'])) {
             $expire = time() + 60 * 60 * 24 * 30;
             setcookie('user_id', $result[0]['user_id'], $expire);
-            setcookie('username', $result[0]['username'], $expire);
+            setcookie('persist', md5($result[0]['username'] + $result[0]['password']), $expire);
         } else {
             $_SESSION['user_id'] = $result[0]['user_id'];
             $_SESSION['username'] = $result[0]['username'];
