@@ -1,7 +1,7 @@
 body {
 	padding-bottom: 10px;
 	font-family: 'Expletus Sans', cursive;
-	background: -webkit-linear-gradient(90deg, #085078 10%, #4290A0 
+	/*background: -webkit-linear-gradient(90deg, #085078 10%, #4290A0 
 90%);
 	background: -moz-linear-gradient(90deg, #085078 10%, #4290A0 
 90%);
@@ -9,15 +9,18 @@ body {
 90%);
 	background: -o-linear-gradient(90deg, #085078 10%, #4290A0 90%);
 	background: linear-gradient(90deg, #085078 10%, #4290A0 90%);
+	background-image: url('../img/digital_background.jpg');*/
+	background-image: url('../img/asteroids.jpg');
 }
 
 h1,h2,h3,a.brand {
 	font-family: 'Source Code Pro', ;
 	font-weight: 700;
+	color: rgb(3, 5, 28);
 }
 
 a {
-	color: #00AAFF;
+	color: #F7302B;
 }
 
 #site {
@@ -48,7 +51,7 @@ a {
 	border: 2px solid;
 	/* 	border-radius: 15px; */
 	margin-top: 5px;
-	background-color: rgba(3, 3, 3, 0.46);
+	background-color: rgba(3, 5, 28, 1);
 }
 
 .navbar-inside {
@@ -67,6 +70,9 @@ a {
 
 hr {
 	margin-top: 10px;
+}
+.brand {
+	color: #FEBC1D !important;
 }
 
 .brand img {
@@ -137,3 +143,4 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 		padding-bottom: 3px;
 	}
 }
+
