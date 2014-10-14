@@ -1,6 +1,7 @@
 body {
 	padding-bottom: 10px;
-	font-family: 'Expletus Sans', cursive;
+	font-family: 'Open Sans', sans-serif;
+	word-spacing: 1.5px;
 	/*background: -webkit-linear-gradient(90deg, #085078 10%, #4290A0 
 90%);
 	background: -moz-linear-gradient(90deg, #085078 10%, #4290A0 
@@ -14,8 +15,8 @@ body {
 }
 
 h1,h2,h3,a.brand {
-	font-family: 'Source Code Pro', ;
-	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
 	color: rgb(3, 5, 28);
 }
 
