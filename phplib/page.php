@@ -71,7 +71,7 @@ class Page
 					<meta name="author" content="Fog Productions">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<META HTTP-EQUIV="EXPIRES" CONTENT="Fri, 24 Jan 2015 00:00:01 GMT">
-                    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
+                    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
 					<link rel="shortcut icon" href="assets/ico/favicon.png">
 					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
