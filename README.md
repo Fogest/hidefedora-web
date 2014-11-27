@@ -1,7 +1,4 @@
-Base-Site-Template
+Hide Fedora Website
 ==================
 
-Base template for websites
-
-View the batch file used to generate new Base-Template:
-https://gist.github.com/Fogest/ad90f84a5cb72edd6663
+This is the code for the hide-fedora website
