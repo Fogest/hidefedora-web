@@ -17,6 +17,7 @@ $page->html .= '<h4>Review Queue</h4>
 		<tr>
 			<th>ID</th>
 			<th>Date</th>
+			<th>IP</th>
 			<th>Approve/Reject</th>
 		</tr>
 	</thead>
@@ -27,6 +28,10 @@ foreach($result as $value) {
 
 	$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
+	if($value['ip'] != NULL)
+		$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
+	else
+		$page->html .= '<td class="ip"></td>';
 	$page->html .= '<td><button class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
