@@ -41,7 +41,7 @@ $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 1 OR `approvalStat
 $result = $database->execute($sql);
 
 
-$page->html .= '<h4>Recently Approved (last 50)</h4>
+$page->html .= '<h4>Recently Approved (last 10)</h4>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
