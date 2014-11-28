@@ -53,30 +53,31 @@ if(isset($_POST['submit'])) {
 
 	$page->html .= '<form id="fedora-form" name="fedora-form" method="post" class="form-horizontal">
 	<h4>Submit Fedora User for Review</h4>
-	<fieldset>
 
 	<!-- Form Name -->
 	
 
 	<!-- Text input-->
 	<div class="control-group">
-	  <label class="control-label" for="profileUrl">Profile URL</label>
-	  <div class="controls">
+	  <label for="profileUrl">Profile URL</label>
 	    <input id="profileUrl" name="profileUrl" type="text" placeholder="https://plus.google.com/12345678987654321" class="input-xlarge" required="">
-	    
-	  </div>
 	</div>
 
 	<!-- Button -->
 	<div class="control-group">
-	  <label class="control-label" for="submit">Submit</label>
-	  <div class="controls">
 	    <button id="submit" name="submit" class="btn btn-primary">Submit</button>
-	  </div>
 	</div>
 
-	</fieldset>
 	</form>
+		<div class=" ad"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- banner hidefedora -->
+		<ins class="adsbygoogle"
+		     style="display:inline-block;width:728px;height:90px"
+		     data-ad-client="ca-pub-7190930054905704"
+		     data-ad-slot="8651857830"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script></div>
 	';
 
 	$sql = "SELECT * FROM `blockedusers`\n"
