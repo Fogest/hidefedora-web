@@ -35,6 +35,15 @@ if(isset($_POST['submit'])) {
 					$page->html .= $alert->displayError('Failed to save to database!');
 				else
 					$page->html .= $alert->displaySuccess('URL saved; Now in review process!');
+
+				$to      = 'fogestjv@gmail.com';
+				$subject = 'ID Submitted!';
+				$body = 'ID submitted, check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item!';
+				$headers = 'From: admin@jhvisser.com' . "\r\n" .
+				    'Reply-To: admin@jhvisser.com' . "\r\n" .
+				    'X-Mailer: PHP/' . phpversion();
+
+				mail($to, $subject, $body, $headers);
 			}
 		}
 	}
