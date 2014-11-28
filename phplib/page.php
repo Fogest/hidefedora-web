@@ -101,8 +101,11 @@ class Page
 					  <div class="nav-collapse collapse">
 			            <ul class="nav">
         <li><a href="' . SITE_URL . 'index.php">Home</a></li>
-        <li><a href="' . HTML_PATH . 'footer/about.php">About</a></li>
-        <li><a href="' . HTML_PATH . 'footer/contact.php">Contact</a></li>
+        ';
+        if(isset($_SESSION['user_level']))
+            if($_SESSION['user_level'] > 0)
+                echo '<li><a href="' . SITE_URL . 'html/review/review.php">Review</a></li>';
+        echo '
         </ul>';
         if (LOGIN_REGISTER) {
             echo '<div class="pull-right">';
@@ -260,6 +263,21 @@ class Page
                         });
                         $("#register").on("shown",function(){
                             $("#registerBtn").focus();
+                        });
+
+                        $("button.approve").click(function(){
+                            var id = $(this).closest("tr").find("td:first").text();
+                            var button = $(this);
+                            $.post("ajax.php",{status:1,id:id},function(result){
+                                button.closest("tr").removeClass("error").addClass("success");
+                            });                            
+                        });
+                        $("button.reject").click(function(){
+                            var id = $(this).closest("tr").find("td:first").text();
+                            var button = $(this);
+                            $.post("ajax.php",{status:-1,id:id},function(result){
+                                button.closest("tr").removeClass("success").addClass("error");
+                            });    
                         });
                          
                 	});

@@ -4,17 +4,71 @@ include_once ("setup.php");
 $page->page_title = 'Home';
 $page->page_header = 'Home';
 
-$page->html .= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed volutpat laoreet erat et placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae tempus lectus, gravida rutrum mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent fringilla vitae enim sed tempus. Sed feugiat euismod suscipit. Nunc dolor dolor, fermentum quis adipiscing vel, luctus quis ante. Aenean ante ante, cursus sed ornare sed, tincidunt quis nulla.
-</p>
+if(isset($_POST['submit'])) {
+	$regex = "/((https|http):\/\/plus\.google\.com\/\d+)|(^\d+$)/"; 
+	$profileurl = $_POST['profileUrl'];
 
-<p>Quisque volutpat, ipsum sit amet tempus vulputate, neque est congue metus, a laoreet enim felis et tortor. Nunc tristique, justo at tincidunt congue, est est mattis libero, eget egestas enim lorem vel tellus. Nullam placerat ultrices auctor. Suspendisse vulputate quis enim eget tempus. Vivamus imperdiet varius venenatis. Nullam vitae augue ut justo hendrerit lacinia. Cras vehicula, lectus laoreet iaculis placerat, mauris diam eleifend nulla, id ultrices justo magna nec odio. Quisque et ante ut nisi sollicitudin porttitor. Curabitur quis leo enim. Integer sollicitudin ipsum eget mi condimentum, fringilla egestas nibh tincidunt. Aenean sed elementum tellus, vitae consectetur dolor. Vestibulum ac nisi nisl. Aliquam eget dolor non massa mollis dictum vel et nisl.
-</p>
+	if(!isset($_POST['profileUrl']))
+		$page->html .= $alert->displayError('Profile URL not filled.');
+	else if(trim($profileurl) == '')
+		$page->html .= $alert->displayError('Profile URL not filled.');
+	else if(!preg_match($regex,$profileurl))
+		$page->html .= $alert->displayError('URL must be from YouTube or Google+');
+	else {
+		$regex = "/\d+/";
+		$id = array();
+		if(!preg_match_all($regex,$profileurl,$id))
+			$page->html .= $alert->displayError('Error finding ID in url.');
+		else {
+			$query = "SELECT id FROM blockedusers WHERE id=" . $database->clean_data($id[0][0]) . ";";
+			$result = $database->execute($query);
+			if(isset($result[0]['id'])) {
+				$page->html .= $alert->displayError('ID is already in database. If it is not being blocked yet it could be because it is under review still!');
+			} else {
 
-<p>Etiam pretium magna mollis <a href='http://google.com'>eros ullamcorper</a>, et lobortis nunc vestibulum. Nam tristique accumsan varius. In hac habitasse platea dictumst. Nam sollicitudin non nunc ornare laoreet. Aliquam sit amet metus vel ipsum condimentum tincidunt. Morbi pretium nulla eget tristique auctor. Nulla dignissim cursus magna nec tristique. Nam et enim laoreet, gravida enim in, sagittis mauris.
-</p>
-<p>Sed malesuada mauris vel posuere vehicula. Curabitur tristique dictum suscipit. Nulla fermentum et nulla ut ultricies. Suspendisse ut orci accumsan, faucibus sapien in, blandit erat. Vivamus in bibendum tortor. Cras eu convallis purus, consectetur luctus orci. Sed at turpis odio. Ut a dolor sit amet velit suscipit porttitor. Nam fringilla, justo ut luctus tincidunt, sapien justo suscipit nibh, pellentesque euismod augue justo quis elit. Donec laoreet cursus justo in tincidunt. Aenean consequat, velit sit amet interdum euismod, mi nisl euismod velit, vel placerat mauris tortor eget dolor. Mauris lorem sapien, venenatis quis fringilla ut, mattis at odio.
-</p>
-<p>Proin dictum scelerisque risus, sit amet pulvinar dui auctor eget. In malesuada ipsum eu mattis condimentum. Vivamus aliquam sapien quis magna fermentum, ac rutrum tortor venenatis. Nullam at cursus quam. Phasellus sit amet consequat purus. Nunc laoreet sodales massa, et porttitor lorem lacinia at. Donec vitae quam vitae elit bibendum euismod.	</p>	";
+				$table = 'blockedusers';
+				$args['id'] = $id[0][0];
+				$args['date'] = date("Y-m-d H:i:s");
+
+				$result = $database->insert($table,$args);
+				if(!$result)
+					$page->html .= $alert->displayError('Failed to save to database!');
+				else
+					$page->html .= $alert->displaySuccess('URL saved; Now in review process!');
+			}
+		}
+	}
+
+
+} else {
+
+	$page->html .= '<form id="fedora-form" name="fedora-form" method="post" class="form-horizontal">
+	<fieldset>
+
+	<!-- Form Name -->
+	<legend>Submit Fedora User for Review</legend>
+
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label" for="profileUrl">Profile URL</label>
+	  <div class="controls">
+	    <input id="profileUrl" name="profileUrl" type="text" placeholder="https://plus.google.com/12345678987654321" class="input-xlarge" required="">
+	    
+	  </div>
+	</div>
+
+	<!-- Button -->
+	<div class="control-group">
+	  <label class="control-label" for="submit">Submit</label>
+	  <div class="controls">
+	    <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+	  </div>
+	</div>
+
+	</fieldset>
+	</form>
+	';
+}
 
 $page->display();
 ?>

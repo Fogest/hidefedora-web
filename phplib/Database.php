@@ -132,7 +132,7 @@ class Database
         switch ($query_type) {
             case "SELECT":
                 if (! $working_result) {
-                    echo $alert->displayError(
+                    die (
                             'Error in executing SELECT query:' . $query .
                                      ' with error ' . $db->error . '');
                 }
@@ -144,7 +144,7 @@ class Database
             
             case "INSERT":
                 if (! $working_result) {
-                    echo $alert->displayError(
+                    die(
                             'Error in executing INSERT query: ' . $query .
                                      ' with error ' . $db->error . '');
                 }
@@ -158,7 +158,7 @@ class Database
             
             case "UPDATE":
                 if (! $working_result) {
-                    echo $alert->displayError(
+                    die (
                             'Error in executing UPDATE query: ' . $query .
                                      ' with error' . $db->error . '');
                 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Toronto');
 require_once ("phplib/config.php");
 
 include_once ("phplib/Alert.php");
