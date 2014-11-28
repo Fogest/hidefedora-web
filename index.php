@@ -43,10 +43,11 @@ if(isset($_POST['submit'])) {
 } else {
 
 	$page->html .= '<form id="fedora-form" name="fedora-form" method="post" class="form-horizontal">
+	<h4>Submit Fedora User for Review</h4>
 	<fieldset>
 
 	<!-- Form Name -->
-	<legend>Submit Fedora User for Review</legend>
+	
 
 	<!-- Text input-->
 	<div class="control-group">
@@ -68,6 +69,47 @@ if(isset($_POST['submit'])) {
 	</fieldset>
 	</form>
 	';
+
+	$sql = "SELECT * FROM `blockedusers`\n"
+    . "ORDER BY `blockedusers`.`approvalDate` DESC\n"
+    . "LIMIT 15";
+	$result = $database->execute($sql);
+
+
+	$page->html .= '<h4>Recently Submitted/Reviewed (last 15)</h4>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Date Submitted</th>
+				<th>Date Approved</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>';
+	foreach($result as $value) {
+		if($value['approvalStatus'] == 1)
+			$page->html .= '<tr class="success">';
+		else if($value['approvalStatus'] == 0)
+			$page->html .= '<tr class="warning">';
+		else
+			$page->html .= '<tr class="error">';
+
+		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</td>';
+		$page->html .= '<td>' . $value['date'] . '</td>';
+		$page->html .= '<td>' . $value['approvalDate'] . '</td>';
+		if($value['approvalStatus'] == 1)
+			$page->html .= '<td>Approved</td>';
+		else if($value['approvalStatus'] == 0)
+			$page->html .= '<td>Pending</td>';
+		else
+			$page->html .= '<td>Rejected</td>';
+
+		$page->html .= '</tr>';
+	}	
+
+		$page->html .= '</tbody>
+	</table>';
 }
 
 $page->display();
