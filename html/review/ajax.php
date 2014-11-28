@@ -9,6 +9,7 @@
 		else
 			echo 'Approval Status Error';
 		$args['approvalDate'] = date("Y-m-d H:i:s");
+		$args['approvingUser'] = $_SESSION['username'];
 		$where['id'] = $_POST['id'];
 		$database->update($table, $args, $where);
 	}

@@ -30,6 +30,12 @@ if(isset($_POST['submit'])) {
 				$args['id'] = $id[0][0];
 				$args['date'] = date("Y-m-d H:i:s");
 
+				if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+					$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+				}
+				if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+					$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
+
 				$result = $database->insert($table,$args);
 				if(!$result)
 					$page->html .= $alert->displayError('Failed to save to database!');
