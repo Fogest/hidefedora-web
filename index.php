@@ -36,6 +36,10 @@ if(isset($_POST['submit'])) {
 				if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 					$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
 
+				if(isset($_POST['comment']))
+					if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
+						$args['comment'] = $_POST['comment'];
+
 				$result = $database->insert($table,$args);
 				if(!$result)
 					$page->html .= $alert->displayError('Failed to save to database!');
