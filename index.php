@@ -60,9 +60,13 @@ if(isset($_POST['submit'])) {
 
 
 } else {
+	$sql = "SELECT COUNT(*) as Count FROM `blockedusers` WHERE `approvalStatus`=1";
+	$result = $database->execute($sql);
+	$result = $result[0]['Count'];
+
 
 	$page->html .= '<form id="fedora-form" name="fedora-form" method="post" class="form-horizontal">
-	<h4>Submit Fedora User for Review</h4>
+	<h4>Submit Fedora User for Review - Banned <strong>' . $result . '</strong> users and counting!</h4>
 
 	<!-- Form Name -->
 	
