@@ -16,6 +16,7 @@ $page->html .= '<h4>Review Queue</h4>
 	<thead>
 		<tr>
 			<th>ID</th>
+			<th>Comment</th>
 			<th>Date</th>
 			<th>IP</th>
 			<th>Approve/Reject</th>
@@ -27,11 +28,9 @@ foreach($result as $value) {
 	$page->html .= '<tr>';
 
 	$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
-	if($value['ip'] != NULL)
-		$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
-	else
-		$page->html .= '<td class="ip"></td>';
+	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
 	$page->html .= '<td><button class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
@@ -51,8 +50,10 @@ $page->html .= '<h4>Recently Approved (last 10)</h4>
 	<thead>
 		<tr>
 			<th>ID</th>
+			<th>Comment</th>
 			<th>Date Submitted</th>
 			<th>Date Approved</th>
+			<th>Approved By</th>
 		</tr>
 	</thead>
 	<tbody>';
@@ -63,8 +64,10 @@ foreach($result as $value) {
 		$page->html .= '<tr class="error">';
 
 	$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</td>';
+	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td>' . $value['date'] . '</td>';
 	$page->html .= '<td>' . $value['approvalDate'] . '</td>';
+	$page->html .= '<td>' . $value['approvingUser'] . '</td>';
 
 	$page->html .= '</tr>';
 }	
