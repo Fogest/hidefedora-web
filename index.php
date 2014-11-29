@@ -95,12 +95,13 @@ if(isset($_POST['submit'])) {
 	';
 
 	$sql = "SELECT * FROM `blockedusers`\n"
+	. "WHERE `approvalStatus`=1\n"
     . "ORDER BY `blockedusers`.`approvalDate` DESC\n"
     . "LIMIT 15";
 	$result = $database->execute($sql);
 
 
-	$page->html .= '<h4>Recently Submitted/Reviewed (last 15)</h4>
+	$page->html .= '<h4>Recently Approved (last 15)</h4>
 	<table class="table table-hover table-bordered">
 		<thead>
 			<tr>
