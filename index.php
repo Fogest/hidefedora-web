@@ -108,28 +108,15 @@ if(isset($_POST['submit'])) {
 				<th>ID</th>
 				<th>Date Submitted</th>
 				<th>Date Approved</th>
-				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>';
 	foreach($result as $value) {
-		if($value['approvalStatus'] == 1)
-			$page->html .= '<tr class="success">';
-		else if($value['approvalStatus'] == 0)
-			$page->html .= '<tr class="warning">';
-		else
-			$page->html .= '<tr class="error">';
+		$page->html .= '<tr class="success">';
 
 		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</td>';
 		$page->html .= '<td>' . $value['date'] . '</td>';
 		$page->html .= '<td>' . $value['approvalDate'] . '</td>';
-		if($value['approvalStatus'] == 1)
-			$page->html .= '<td>Approved</td>';
-		else if($value['approvalStatus'] == 0)
-			$page->html .= '<td>Pending</td>';
-		else
-			$page->html .= '<td>Rejected</td>';
-
 		$page->html .= '</tr>';
 	}	
 
