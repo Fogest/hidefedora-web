@@ -49,9 +49,13 @@ if(isset($_POST['submit'])) {
 				$to      = 'fogestjv@gmail.com';
 				$subject = 'ID Submitted!';
 				$body = 'ID submitted, check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item!';
-				$headers = 'From: admin@jhvisser.com' . "\r\n" .
-				    'Reply-To: admin@jhvisser.com' . "\r\n" .
-				    'X-Mailer: PHP/' . phpversion();
+
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= 'Reply-To: admin@jhvisser.com' . "\r\n" .
+
+				// Additional headers
+				$headers .= 'From: Hide Fedora <admin@jhvisser.com>' . "\r\n";
 
 				mail($to, $subject, $body, $headers);
 			}
