@@ -6,7 +6,7 @@ $result = $database->execute($sql);
 $result = $result[0]['numberOfReports'];
 
 if($result > 0) {
-	$to      = 'fogest@live.com';
+	$to      = 'fogestjv@gmail.com';
 	$subject = 'There are ' . $result . ' reports to review';
 	$body = 'You need to review '. $result . ' items. Check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item(s)!';
 
