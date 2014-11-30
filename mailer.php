@@ -7,7 +7,7 @@ $result = $result[0]['numberOfReports'];
 
 $to      = 'justin@jhvisser.com';
 $subject = 'There are ' . $result . ' reports to review';
-$body = 'You need to review '. $result . ', items. Check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item(s)!';
+$body = 'You need to review '. $result . ' items. Check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item(s)!';
 
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
