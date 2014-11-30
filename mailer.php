@@ -17,6 +17,7 @@ $headers .= 'Reply-To: admin@jhvisser.com' . "\r\n" .
 $headers .= 'From: Hide Fedora <admin@jhvisser.com>' . "\r\n";
 
 if(mail($to, $subject, $body, $headers)) {
+	$table = 'blockedusers';
 	$args['hasBeenEmailed'] = 1;
 	$where['hasBeenEmailed'] = 0;
 	$database->update($table, $args, $where);
