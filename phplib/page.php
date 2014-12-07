@@ -276,7 +276,7 @@ class Page
                             });  
                         });
                         $("button.approve").click(function(){
-                            var id = $(this).closest("tr").find("td:first").text();
+                            var id = $(this).closest("tr").find("td:first a:first").text();
                             var button = $(this);
                             $.post("ajax.php",{status:1,id:id},function(result){
                                 button.closest("tr").removeClass("error").addClass("success");
