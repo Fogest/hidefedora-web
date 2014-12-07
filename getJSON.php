@@ -30,6 +30,7 @@
     $jsonOutput = array("fedoras" => $ids);
 
 	echo json_encode($jsonOutput);
+	echo '<!--Generated cache:' . date('h:i:s A') . '-->'; 
 	// Cache the contents to a file
 	$cached = fopen($cachefile, 'w');
 	fwrite($cached, ob_get_contents());
