@@ -35,6 +35,11 @@ if(isset($_POST['submit'])) {
 					$args['hasBeenEmailed'] = 0;
 					$args['approvalDate'] = "NULL";
 					$args['date'] = date("Y-m-d H:i:s");
+
+					$regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
+					if(isset($_POST['youtubeUrl']) && preg_match($regex, $_POST['youtubeUrl']))
+						$args['youtubeUrl'] = $_POST['youtubeUrl'];
+
 					if(isset($_POST['comment']))
 						if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
 							$args['comment'] = $_POST['comment'];
@@ -64,6 +69,8 @@ if(isset($_POST['submit'])) {
 				if(isset($_POST['comment']))
 					if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
 						$args['comment'] = $_POST['comment'];
+				if(isset($_POST['youtubeUrl']))
+					$args['youtubeUrl'] = $_POST['youtubeUrl'];
 
 				$result = $database->insert($table,$args);
 				if(!$result)
