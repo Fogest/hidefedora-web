@@ -264,7 +264,17 @@ class Page
                         $("#register").on("shown",function(){
                             $("#registerBtn").focus();
                         });
-
+                        $("#submit").click(function(){
+                            $.post("html/submit/submit.php",
+                                {submit:1,
+                                    profileUrl:$("#profileUrl").val(),
+                                    comment: null,
+                                    youtubeUrl: \'Manual\'},
+                                function(result){
+                                $("#status").html("<div class=\'alert alert-success\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
+                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").delay(2000).fadeOut("slow");
+                            });  
+                        });
                         $("button.approve").click(function(){
                             var id = $(this).closest("tr").find("td:first").text();
                             var button = $(this);
