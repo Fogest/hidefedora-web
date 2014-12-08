@@ -1,5 +1,6 @@
 <?php
 	include_once ("../../setup.php");
+	$page->privilege = 1;
 	if(isset($_POST['id']) && isset($_POST['status'])) {
 		$table = 'blockedusers';
 		if($_POST['status'] == 1)
