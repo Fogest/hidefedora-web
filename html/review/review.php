@@ -15,12 +15,12 @@ $page->html .= '<h4>Review Queue</h4>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
-			<th>ID</th>
-			<th>Comment</th>
-			<th>Date</th>
-			<th>IP</th>
-			<th>Reports</th>
-			<th>Approve/Reject</th>
+			<th class="id">ID</th>
+			<th class="comment">Comment</th>
+			<th class="date">Date</th>
+			<th class="ip">IP</th>
+			<th class="count">Reports</th>
+			<th class="decision">Approve/Reject</th>
 		</tr>
 	</thead>
 	<tbody>';
@@ -35,8 +35,8 @@ foreach($result as $value) {
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
 	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
-	$page->html .= '<td class="date">' . $value['count'] . '</td>';
-	$page->html .= '<td><button class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
+	$page->html .= '<td class="count">' . $value['count'] . '</td>';
+	$page->html .= '<td class="decision"><button class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
 }		

@@ -122,10 +122,31 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 	margin: 0 auto !important;
 }
 
-=======
-#recaptcha_area {
-	margin: 0 auto !important;
+
+
+table {
+	table-layout: fixed;
+	width: 100%;
 }
+th,td {
+	word-wrap: break-word;
+}
+th.id {
+	width: 12%;
+}
+th.date {
+	width: 10%;
+}
+th.ip {
+	width: 10%;
+}
+th.count {
+	width: 7%;
+}
+th.decision {
+	width: 16%;
+}
+
 
 .well {
 	background-color: rgba(121, 111, 111, 0.06);
