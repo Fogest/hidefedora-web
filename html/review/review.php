@@ -68,7 +68,10 @@ foreach($result as $value) {
 	else
 		$page->html .= '<tr class="error">';
 
-	$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</td>';
+	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
+		$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+	else
+		$page->html .= '<td"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td>' . $value['date'] . '</td>';
 	$page->html .= '<td>' . $value['approvalDate'] . '</td>';
