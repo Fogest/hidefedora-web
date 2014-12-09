@@ -308,6 +308,20 @@ class Page
                                     "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn().delay(2000).fadeOut("slow");
                             });  
                         });
+                        $("button.unban").click(function(){
+                            var id = $(this).closest("tr").find("td:first a:first").text();
+                            var button = $(this);
+                            $.post("../review/ajax.php",{status:0,id:id,unban:1},function(result){
+                                button.closest("tr").addClass("success");
+                            });                            
+                        });
+                        $("button.unbanDecline").click(function(){
+                            var id = $(this).closest("tr").find("td:first a:first").text();
+                            var button = $(this);
+                            $.post("../review/ajax.php",{status:1,id:id,unban:1},function(result){
+                                button.closest("tr").addClass("error");
+                            });                            
+                        });
                          
                 	});
                 </script>
