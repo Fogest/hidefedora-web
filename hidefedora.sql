@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `blockedusers` (
   `pkey` int(11) NOT NULL AUTO_INCREMENT,
-  `id` tinytext COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `comment` text COLLATE utf8_unicode_ci,
   `date` datetime NOT NULL,
   `count` int(11) NOT NULL DEFAULT '1' COMMENT 'Number of times item has been reported',
@@ -38,9 +38,30 @@ CREATE TABLE IF NOT EXISTS `blockedusers` (
   `approvingUser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `hasBeenEmailed` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = no email sent, 1 = email sent.',
   `youtubeUrl` tinytext COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`pkey`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`pkey`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `idx_blockedusers_id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appeals`
+--
+
+CREATE TABLE IF NOT EXISTS `appeals` (
+  `pkey` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `approvalStatus` tinyint(4) DEFAULT '0' COMMENT '0 = pending, 1 = accepted',
+  `ip` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`pkey`),
+  UNIQUE KEY `pkey_UNIQUE` (`pkey`),
+  KEY `id_idx` (`id`),
+  CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `blockedusers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Table to handle user appeals on their bans. ';
 
 -- --------------------------------------------------------
 
