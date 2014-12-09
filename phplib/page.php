@@ -273,7 +273,7 @@ class Page
                                     comment: null,
                                     youtubeUrl: \'Manual\'},
                                 function(result){
-                                $("#status").html("<div class=\'alert alert-success\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
+                                $("#status").html("<div class=\'alert alert-info\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
                                     "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn().delay(2000).fadeOut("slow");
                             });  
                         });
@@ -296,6 +296,17 @@ class Page
                         });
                         $("#rejectAll").click(function(){
                             $("table.review").find("tbody tr:not(.success,.error)").find(".reject").click();
+                        });
+
+                        $("#submit-unban").click(function(){
+                            $.post("../review/ajax.php",
+                                {   status:-1,
+                                    id:$("#profileId").val()
+                                },
+                                function(result){
+                                $("#status").html("<div class=\'alert alert-info\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
+                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn().delay(2000).fadeOut("slow");
+                            });  
                         });
                          
                 	});

@@ -12,9 +12,6 @@ $result = $result[0]['Count'];
 $page->html .= '<div id="status"></div>
 <h4>Submit Fedora User for Review - Banned <strong>' . $result . '</strong> users and counting!</h4>
 
-<!-- Form Name -->
-
-
 <!-- Text input-->
 <div class="control-group">
   <label for="profileUrl">Profile URL</label>

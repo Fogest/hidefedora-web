@@ -14,8 +14,8 @@
 		$where['id'] = $_POST['id'];
 		$result = $database->update($table, $args, $where);
 		if(!$result)
-			echo 'failed to save to db';
+			echo 'Failed to update database';
 		else
-			echo 'saved';
+			echo 'Updated database';
 	}
 ?>
