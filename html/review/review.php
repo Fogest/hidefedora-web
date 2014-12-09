@@ -11,8 +11,13 @@ $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "LIMIT 50";
 $result = $database->execute($sql);
 
-$page->html .= '<h4>Review Queue</h4>
-<table class="table table-hover table-bordered">
+$page->html .= '<h4 class="floatLeft">Review Queue</h4>
+<div class="all">
+	<button id="rejectAll" class="btn btn-danger reject" type="button" name="rejectAll">Reject Remaining</button>
+	<button id="approveAll" class="btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
+</div>
+<div style="clear: both;"></div>
+<table class="table table-hover table-bordered review">
 	<thead>
 		<tr>
 			<th class="id">ID</th>

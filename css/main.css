@@ -118,32 +118,41 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 	background-image: none;
 }
 
+.floatLeft {
+	float: left;
+}
 #recaptcha_area {
 	margin: 0 auto !important;
 }
 
+#rejectAll,#approveAll {
+	float: right;
+}
+.all {
+	padding-bottom: 35px;
+}
 
 
-table {
+table.review {
 	table-layout: fixed;
 	width: 100%;
 }
-th,td {
+.review th,td {
 	word-wrap: break-word;
 }
-th.id {
+.review th.id {
 	width: 12%;
 }
-th.date {
+.review th.date {
 	width: 10%;
 }
-th.ip {
+.review th.ip {
 	width: 10%;
 }
-th.count {
+.review th.count {
 	width: 7%;
 }
-th.decision {
+.review th.decision {
 	width: 16%;
 }
 

@@ -272,7 +272,7 @@ class Page
                                     youtubeUrl: \'Manual\'},
                                 function(result){
                                 $("#status").html("<div class=\'alert alert-success\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
-                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").delay(2000).fadeOut("slow");
+                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn().delay(2000).fadeOut("slow");
                             });  
                         });
                         $("button.approve").click(function(){
@@ -288,6 +288,12 @@ class Page
                             $.post("ajax.php",{status:-1,id:id},function(result){
                                 button.closest("tr").removeClass("success").addClass("error");
                             });    
+                        });
+                        $("#approveAll").click(function(){
+                            $("table.review").find("tbody tr:not(.success,.error)").find(".approve").click();
+                        });
+                        $("#rejectAll").click(function(){
+                            $("table.review").find("tbody tr:not(.success,.error)").find(".reject").click();
                         });
                          
                 	});
