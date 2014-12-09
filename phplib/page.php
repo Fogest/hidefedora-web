@@ -72,7 +72,7 @@ class Page
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<META HTTP-EQUIV="EXPIRES" CONTENT="Fri, 24 Jan 2015 00:00:01 GMT">
                     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
-					<link rel="shortcut icon" href="assets/ico/favicon.png">
+					<link rel="shortcut icon" href="'. SITE_URL .'assets/ico/favicon.png">
 					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH .
@@ -105,6 +105,8 @@ class Page
         if(isset($_SESSION['user_level']))
             if($_SESSION['user_level'] > 0)
                 echo '<li><a href="' . SITE_URL . 'html/review/review.php">Review</a></li>';
+                echo '<li><a href="' . SITE_URL . 'html/unban/unban.php">Unban</a></li>';
+        echo '<li><a href="' . SITE_URL . 'html/unban/appeal.php">Appeal Ban</a></li>';
         echo '
         </ul>';
         if (LOGIN_REGISTER) {
