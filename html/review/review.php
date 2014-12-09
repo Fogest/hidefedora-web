@@ -62,23 +62,30 @@ $page->html .= '<h4>Recently Approved (last 10)</h4>
 		</tr>
 	</thead>
 	<tbody>';
+
 foreach($result as $value) {
+	
 	if($value['approvalStatus'] == 1)
 		$page->html .= '<tr class="success">';
 	else
 		$page->html .= '<tr class="error">';
 
-	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-		$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+	if(($value['youtubeUrl'] != NULL) && ($value['youtubeUrl'] != 'Manual'))
+		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
 	else
-		$page->html .= '<td"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+	
+
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td>' . $value['date'] . '</td>';
 	$page->html .= '<td>' . $value['approvalDate'] . '</td>';
 	$page->html .= '<td>' . $value['approvingUser'] . '</td>';
 
+
+
 	$page->html .= '</tr>';
 }	
+
 
 	$page->html .= '</tbody>
 </table>';
