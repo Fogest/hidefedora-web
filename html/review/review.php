@@ -11,6 +11,12 @@ $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "LIMIT 50";
 $result = $database->execute($sql);
 
+$page->html .= '<div id="pop1" class="popbox">
+				    <h2>Success!</h2>
+				    <p>This is an example popbox.</p>
+				</div>
+				';
+
 $page->html .= '<h4 class="floatLeft">Review Queue</h4>
 <div class="all">
 	<button id="rejectAll" class="btn btn-danger reject" type="button" name="rejectAll">Reject Remaining</button>
@@ -34,9 +40,9 @@ foreach($result as $value) {
 	$page->html .= '<tr>';
 
 	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-		$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+		$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
 	else
-		$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+		$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
 	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
@@ -76,9 +82,9 @@ foreach($result as $value) {
 		$page->html .= '<tr class="error">';
 
 	if(($value['youtubeUrl'] != NULL) && ($value['youtubeUrl'] != 'Manual'))
-		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+		$page->html .= '<td><a class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
 	else
-		$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+		$page->html .= '<td><a class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
 	
 
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';

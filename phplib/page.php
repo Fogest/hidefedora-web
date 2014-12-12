@@ -251,6 +251,10 @@ class Page
 							        $("#contactForm").validate();</script>
 				<script type="text/javascript" src="' .
                  JAVASCRIPT_PATH . 'bootstrap' . JAVASCRIPT_EXTENSION . '"></script>
+                <script type="text/javascript" src="' .
+                 JAVASCRIPT_PATH . 'jquery.hoverIntent.minified' . JAVASCRIPT_EXTENSION . '"></script>
+                <script type="text/javascript" src="' .
+                 JAVASCRIPT_PATH . 'popup' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript">
                 	$(function() {
                 		var title = $("#pageTitle").text();

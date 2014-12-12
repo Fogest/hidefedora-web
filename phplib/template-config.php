@@ -30,4 +30,7 @@ define("DB_HOSTNAME", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
 define("DB_DATABASE", "template");
+
+/* Optional Google Plus API key to get profile data on hover */
+define("GOOGLE_PLUS_API_KEY", "");
 ?>
