@@ -1,6 +1,6 @@
 $(function() {
-	var moveLeft = 0;
-	var moveDown = 0;
+	var moveLeft = 5;
+	var moveDown = 5;
     
     $('.profileHover').hoverIntent({
     	over: hoverOn,
