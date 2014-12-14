@@ -99,8 +99,8 @@ function submissionCooldownCheck($database) {
     else {
     	return true;
     }
-    //30 seconds.
-    if ((time() - strtotime($date)) > 30)
+    //60 seconds.
+    if ((time() - strtotime($date)) > 60)
 		return true;
 	else
 		return false;
