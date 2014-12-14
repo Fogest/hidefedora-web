@@ -1,9 +1,12 @@
 <?php
-include_once ("../../setup.php");
+include ("../../setup.php");
 
 if(isset($_POST['submit'])) {
 	$regex = "/((https|http):\/\/plus\.google\.com\/\d+)|(^\d+$)/"; 
 	$profileurl = $_POST['profileUrl'];
+
+	if(!submissionCooldownCheck($database))
+		die("URL saved; Now in review process!");
 
 	if(!isset($_POST['profileUrl']))
 		echo 'Profile URL not filled.';
@@ -27,7 +30,6 @@ if(isset($_POST['submit'])) {
 					}
 					if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 						$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
-
 					$table = 'blockedusers';
 					$args['count'] = $result[0]['count'] + 1;
 					$args['approvalStatus'] = 0;
@@ -65,7 +67,6 @@ if(isset($_POST['submit'])) {
 				}
 				if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 					$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
-
 				if(isset($_POST['comment']))
 					if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
 						$args['comment'] = $_POST['comment'];
@@ -80,6 +81,29 @@ if(isset($_POST['submit'])) {
 			}
 		}
 	}
+}
+
+function submissionCooldownCheck($database) {
+	$ip = 0;
+	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+		$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+	}
+	if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+		$ip = ip2long($_SERVER['REMOTE_ADDR']);
+	$sql = "SELECT `date` FROM `blockedusers` WHERE `ip` = ". $ip ."\n"
+    . "ORDER BY `blockedusers`.`date` DESC LIMIT 1";
+
+    $date = $database->execute($sql);
+    if(isset($date[0]['date']))
+    	$date = $date[0]['date'];
+    else {
+    	return true;
+    }
+    //2 minute cooldown.
+    if ((time() - strtotime($date)) > 120)
+		return true;
+	else
+		return false;
 }
 
 ?>
