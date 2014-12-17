@@ -3,8 +3,10 @@
 	$page->privilege = 1;
 	if(isset($_POST['id']) && isset($_POST['status'])) {
 		$table = 'blockedusers';
-		if($_POST['status'] == 1)
+		if($_POST['status'] == 1) {
+			deleteCache();
 			$args['approvalStatus'] = 1;
+		}
 		else if($_POST['status'] == -1)
 			$args['approvalStatus'] = -1;
 		else
@@ -30,4 +32,10 @@
 		else
 			echo 'Updated database';
 	}
+
+function deleteCache() {
+	$file = "../../cache/cached-getJSON.html";
+	if(file_exists($file))
+		unlink($file);
+}
 ?>
