@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `blockedusers` (
   `count` int(11) NOT NULL DEFAULT '1' COMMENT 'Number of times item has been reported',
   `approvalStatus` int(2) DEFAULT '0' COMMENT '0 = new, 1 = Approved, -1 = denied',
   `approvalDate` datetime DEFAULT NULL,
-  `ip` int(11) DEFAULT NULL,
+  `ip` bigint(14) DEFAULT NULL,
   `approvingUser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `hasBeenEmailed` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = no email sent, 1 = email sent.',
   `youtubeUrl` tinytext COLLATE utf8_unicode_ci,
