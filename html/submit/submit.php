@@ -20,64 +20,70 @@ if(isset($_POST['submit'])) {
 		if(!preg_match_all($regex,$profileurl,$id))
 			echo 'Error finding ID in url.';
 		else {
-			$query = "SELECT id,count,approvalStatus FROM blockedusers WHERE id=" . $database->clean_data($id[0][0]) . ";";
-			$result = $database->execute($query);
+			$cleaned = $database->clean_data($id[0][0]);
+			if (!profileExists($cleaned)) {
+				echo 'Profile does not exist.';
+			}
+			else {
+				$query = "SELECT id,count,approvalStatus FROM blockedusers WHERE id=" . $cleaned . ";";
+				$result = $database->execute($query);
 
-			if(isset($result[0]['id'])) {
-				if($result[0]['approvalStatus'] != 1) {
+				if(isset($result[0]['id'])) {
+					if($result[0]['approvalStatus'] != 1) {
+						if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+							$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+						}
+						if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+							$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
+						$table = 'blockedusers';
+						$args['count'] = $result[0]['count'] + 1;
+						$args['approvalStatus'] = 0;
+						$args['approvingUser'] = "NULL";
+						$args['hasBeenEmailed'] = 0;
+						$args['approvalDate'] = "NULL";
+						$args['date'] = date("Y-m-d H:i:s");
+
+						$regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
+						if(isset($_POST['youtubeUrl']) && preg_match($regex, $_POST['youtubeUrl']))
+							$args['youtubeUrl'] = $_POST['youtubeUrl'];
+
+						if(isset($_POST['comment']))
+							if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
+								$args['comment'] = $_POST['comment'];
+
+						$where['id'] = $id[0][0];
+
+						$result = $database->update($table, $args, $where);
+						if(!$result)
+							echo 'Failed to save to database!';
+						else
+							echo 'URL saved; Now in review process!';
+					} else {
+						echo 'User has already been blocked!';
+					}
+				} else {
+
+					$table = 'blockedusers';
+					$args['id'] = $id[0][0];
+					$args['date'] = date("Y-m-d H:i:s");
+
 					if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 						$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 					}
 					if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 						$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
-					$table = 'blockedusers';
-					$args['count'] = $result[0]['count'] + 1;
-					$args['approvalStatus'] = 0;
-					$args['approvingUser'] = "NULL";
-					$args['hasBeenEmailed'] = 0;
-					$args['approvalDate'] = "NULL";
-					$args['date'] = date("Y-m-d H:i:s");
-
-					$regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
-					if(isset($_POST['youtubeUrl']) && preg_match($regex, $_POST['youtubeUrl']))
-						$args['youtubeUrl'] = $_POST['youtubeUrl'];
-
 					if(isset($_POST['comment']))
 						if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
 							$args['comment'] = $_POST['comment'];
+					if(isset($_POST['youtubeUrl']))
+						$args['youtubeUrl'] = $_POST['youtubeUrl'];
 
-					$where['id'] = $id[0][0];
-
-					$result = $database->update($table, $args, $where);
+					$result = $database->insert($table,$args);
 					if(!$result)
 						echo 'Failed to save to database!';
 					else
 						echo 'URL saved; Now in review process!';
-				} else {
-					echo 'User has already been blocked!';
 				}
-			} else {
-
-				$table = 'blockedusers';
-				$args['id'] = $id[0][0];
-				$args['date'] = date("Y-m-d H:i:s");
-
-				if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-					$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-				}
-				if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
-					$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
-				if(isset($_POST['comment']))
-					if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
-						$args['comment'] = $_POST['comment'];
-				if(isset($_POST['youtubeUrl']))
-					$args['youtubeUrl'] = $_POST['youtubeUrl'];
-
-				$result = $database->insert($table,$args);
-				if(!$result)
-					echo 'Failed to save to database!';
-				else
-					echo 'URL saved; Now in review process!';
 			}
 		}
 	}
@@ -104,6 +110,26 @@ function submissionCooldownCheck($database) {
 		return true;
 	else
 		return false;
+}
+
+function profileExists($id) {
+	$exists = false;
+
+	$url = 'https://plus.google.com/' . $id;
+
+	$handle = curl_init($url);
+	curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+
+	$response = curl_exec($handle);
+
+	$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+	if($httpCode != 404) {
+		$exists = true;
+	}
+
+	curl_close($handle);
+
+	return $exists;
 }
 
 ?>
