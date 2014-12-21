@@ -102,10 +102,12 @@ class Page
 			            <ul class="nav">
         <li><a href="' . SITE_URL . 'index.php">Home</a></li>
         ';
-        if(isset($_SESSION['user_level']))
-            if($_SESSION['user_level'] > 0)
+        if(isset($_SESSION['user_level'])) {
+            if($_SESSION['user_level'] > 0) {
                 echo '<li><a href="' . SITE_URL . 'html/review/review.php">Review</a></li>';
                 echo '<li><a href="' . SITE_URL . 'html/unban/unban.php">Unban</a></li>';
+            }
+        }
         echo '<li><a href="' . SITE_URL . 'html/unban/appeal.php">Appeal Ban</a></li>';
         echo '
         </ul>';
