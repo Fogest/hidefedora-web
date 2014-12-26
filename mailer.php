@@ -1,7 +1,7 @@
 <?php
 include_once ("setup.php");
 
-$sql = "SELECT COUNT(*) as numberOfReports FROM `blockedusers` WHERE `hasBeenEmailed` = 0 AND `approvalStatus` = 0 ORDER BY `date` DESC";
+$sql = "SELECT COUNT(*) as numberOfReports FROM `blockedusers` WHERE `approvalStatus` = 0 ORDER BY `date` DESC";
 $result = $database->execute($sql);
 $result = $result[0]['numberOfReports'];
 
