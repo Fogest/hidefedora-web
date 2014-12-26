@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `blockedusers` (
   `approvalDate` datetime DEFAULT NULL,
   `ip` bigint(14) DEFAULT NULL,
   `approvingUser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `hasBeenEmailed` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = no email sent, 1 = email sent.',
   `youtubeUrl` tinytext COLLATE utf8_unicode_ci,
   PRIMARY KEY (`pkey`),
   UNIQUE KEY `id_UNIQUE` (`id`),
