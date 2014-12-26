@@ -14,26 +14,27 @@
 	    echo "<!-- Cached copy, generated ".date('H:i', filemtime($cachefile))." -->\n";
 	    include($cachefile);
 	    exit;
+	} else {
+		ob_start(); // Start the output buffer
+
+		$sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 1\n"
+	    . "ORDER BY `blockedusers`.`date` ASC";
+
+	    $result = $database->execute($sql);
+
+	    $ids = array();
+	    foreach($result as $value) {
+	    	$ids[] = $value['id'];
+	    }
+
+	    $jsonOutput = array("fedoras" => $ids);
+
+		echo json_encode($jsonOutput);
+		echo '<!--Generated cache:' . date('h:i:s A') . '-->'; 
+		// Cache the contents to a file
+		$cached = fopen($cachefile, 'w');
+		fwrite($cached, ob_get_contents());
+		fclose($cached);
+		ob_end_flush(); // Send the output to the browser
 	}
-	ob_start(); // Start the output buffer
-
-	$sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 1\n"
-    . "ORDER BY `blockedusers`.`date` ASC";
-
-    $result = $database->execute($sql);
-
-    $ids = array();
-    foreach($result as $value) {
-    	$ids[] = $value['id'];
-    }
-
-    $jsonOutput = array("fedoras" => $ids);
-
-	echo json_encode($jsonOutput);
-	echo '<!--Generated cache:' . date('h:i:s A') . '-->'; 
-	// Cache the contents to a file
-	$cached = fopen($cachefile, 'w');
-	fwrite($cached, ob_get_contents());
-	fclose($cached);
-	ob_end_flush(); // Send the output to the browser
 ?>
