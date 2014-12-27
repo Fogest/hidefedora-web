@@ -280,7 +280,7 @@ class Page
                                     youtubeUrl: \'Manual\'},
                                 function(result){
                                 $("#status").html("<div class=\'alert alert-info\'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'> " + 
-                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn().delay(2000).fadeOut("slow");
+                                    "<i class=\'icon-remove\'></i></button><strong>"+ result +"</strong></div>").fadeIn();
                             });  
                         });
                         $("button.approve").click(function(){

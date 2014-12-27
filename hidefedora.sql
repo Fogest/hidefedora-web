@@ -29,6 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `blockedusers` (
   `pkey` int(11) NOT NULL AUTO_INCREMENT,
   `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `displayName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `profilePictureUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` text COLLATE utf8_unicode_ci,
   `date` datetime NOT NULL,
   `count` int(11) NOT NULL DEFAULT '1' COMMENT 'Number of times item has been reported',

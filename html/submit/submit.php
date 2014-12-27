@@ -21,10 +21,12 @@ if(isset($_POST['submit'])) {
 			echo 'Error finding ID in url.';
 		else {
 			$cleaned = $database->clean_data($id[0][0]);
-			if (!profileExists($cleaned)) {
+			$profileData = fetchProfileInfo($cleaned);
+
+			if (!$profileData)
 				echo 'Profile does not exist.';
-			}
 			else {
+				
 				$query = "SELECT id,count,approvalStatus FROM blockedusers WHERE id=" . $cleaned . ";";
 				$result = $database->execute($query);
 
@@ -111,24 +113,17 @@ function submissionCooldownCheck($database) {
 		return false;
 }
 
-function profileExists($id) {
-	$exists = false;
+function fetchProfileInfo($id) {
+	$jsonurl = "https://www.googleapis.com/plus/v1/people/". $id ."?key=".GOOGLE_PLUS_API_KEY;
+	//use @ to surpress warning.
+	$json = @file_get_contents($jsonurl);
+	if(!$json)
+		return false;
 
-	$url = 'https://plus.google.com/' . $id;
+	//Convert JSON to an array
+	$data = json_decode($json,true);
 
-	$handle = curl_init($url);
-	curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-
-	$response = curl_exec($handle);
-
-	$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-	if($httpCode != 404) {
-		$exists = true;
-	}
-
-	curl_close($handle);
-
-	return $exists;
+	return $data;
 }
 
 ?>
