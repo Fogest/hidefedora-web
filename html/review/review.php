@@ -8,7 +8,7 @@ $page->privilege = 1;
 
 $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "ORDER BY `blockedusers`.`count` DESC, `blockedusers`.`date` ASC\n"
-    . "LIMIT 50";
+    . "LIMIT 75";
 $result = $database->execute($sql);
 
 $page->html .= '<div id="pop1" class="popbox">
