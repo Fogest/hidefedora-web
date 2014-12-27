@@ -34,7 +34,6 @@ if(isset($_POST['submit'])) {
 					$args['count'] = $result[0]['count'] + 1;
 					$args['approvalStatus'] = 0;
 					$args['approvingUser'] = "NULL";
-					$args['hasBeenEmailed'] = 0;
 					$args['approvalDate'] = "NULL";
 					$args['date'] = date("Y-m-d H:i:s");
 
