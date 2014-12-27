@@ -26,7 +26,7 @@ $page->html .= '<h4 class="floatLeft">Review Queue</h4>
 <table class="table table-hover table-bordered review">
 	<thead>
 		<tr>
-			<th class="id">ID</th>
+			<th class="id">Name</th>
 			<th class="comment">Comment</th>
 			<th class="date">Date</th>
 			<th class="ip">IP</th>
@@ -39,10 +39,18 @@ $page->html .= '<h4 class="floatLeft">Review Queue</h4>
 foreach($result as $value) {
 	$page->html .= '<tr>';
 
-	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-		$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
-	else
-		$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+	if($value['profilePictureUrl'] == NULL || $value['displayName'] == NULL) {
+		if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
+			$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+		else
+			$page->html .= '<td class="id"><a data-popbox="pop1" class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+	} else {
+		$page->html .= '<td class="id">';
+			$page->html .= '<img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'">';
+			$page->html .= $value['displayName'];
+		$page->html .= '</td>';
+	}
+
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
 	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
