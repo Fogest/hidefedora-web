@@ -67,7 +67,6 @@ if(isset($_POST['submit'])) {
 					$table = 'blockedusers';
 					$args['id'] = $id[0][0];
 					$args['displayName'] = $profileData['displayName'];
-					$pictureUrl = 
 					$args['profilePictureUrl'] = substr($profileData['image']['url'], 0, -2) . '150';
 					$args['date'] = date("Y-m-d H:i:s");
 

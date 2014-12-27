@@ -665,7 +665,7 @@ class Database
             }
         }
         // -- End of build up argument array --\\
-        echo $alert->displayInfo($query);
+        echo $query;
         
         // now I need to take this query and execute it
         $ret_value = $this->execute($query);
