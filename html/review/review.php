@@ -47,7 +47,7 @@ foreach($result as $value) {
 	} else {
 		$page->html .= '<td class="id">';
 			$page->html .= '<img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'">';
-			$page->html .= $value['displayName'];
+			$page->html .= '<a target="_blank" href="https://plus.google.com/' . $value['id'] . '">'.$value['displayName'] . '</a>';
 		$page->html .= '</td>';
 	}
 
