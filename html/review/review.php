@@ -40,9 +40,9 @@ foreach($result as $value) {
 	$page->html .= '<tr>';
 
 	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-		$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+		$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
 	else
-		$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+		$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a></td>';
 
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
@@ -82,10 +82,10 @@ foreach($result as $value) {
 	else
 		$page->html .= '<tr class="error">';
 
-	if(($value['youtubeUrl'] != NULL) && ($value['youtubeUrl'] != 'Manual'))
-		$page->html .= '<td><a class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
+		$page->html .= '<td><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
 	else
-		$page->html .= '<td><a class="profileHover" target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
+		$page->html .= '<td><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a></td>';
 	
 
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
