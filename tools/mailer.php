@@ -13,12 +13,7 @@ if($result > 0) {
 	$subject = 'There are ' . $result . ' reports to review';
 	$body = 'You need to review '. $result . ' items. Check <a href="https://jhvisser.com/hidefedora/html/review/review.php">the review page</a> and review the item(s)!';
 
-	if($mail->sendReminderEmail($to,$toName,$subject,$body)) {
-		$table = 'blockedusers';
-		$args['hasBeenEmailed'] = 1;
-		$where['hasBeenEmailed'] = 0;
-		$database->update($table, $args, $where);
-	}
+	$mail->sendReminderEmail($to,$toName,$subject,$body);
 }
 
 ?> 
