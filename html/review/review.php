@@ -86,10 +86,15 @@ foreach($result as $value) {
 	else
 		$page->html .= '<tr class="error">';
 
-	if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-		$page->html .= '<td><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
-	else
-		$page->html .= '<td><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a></td>';
+	if($value['displayName'] != NULL) {
+		if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
+			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+		else
+			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a></td>';
+	} else {
+		$page->html .= '<td class="id"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a> - User likely valid, however errors fetching user data!</td>';
+	}
+
 	
 
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
