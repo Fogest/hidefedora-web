@@ -255,8 +255,6 @@ class Page
                  JAVASCRIPT_PATH . 'bootstrap' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript" src="' .
                  JAVASCRIPT_PATH . 'jquery.hoverIntent.minified' . JAVASCRIPT_EXTENSION . '"></script>
-                <script type="text/javascript" src="' .
-                 JAVASCRIPT_PATH . 'popup' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript">
                 	$(function() {
                 		var title = $("#pageTitle").text();
@@ -284,14 +282,14 @@ class Page
                             });  
                         });
                         $("button.approve").click(function(){
-                            var id = $(this).closest("tr").find("td:first a:first").text();
+                            var id = $(this).attr("profileid");
                             var button = $(this);
                             $.post("ajax.php",{status:1,id:id},function(result){
                                 button.closest("tr").removeClass("error").addClass("success");
                             });                            
                         });
                         $("button.reject").click(function(){
-                            var id = $(this).closest("tr").find("td:first a:first").text();
+                            var id = $(this).attr("profileid");
                             var button = $(this);
                             $.post("ajax.php",{status:-1,id:id},function(result){
                                 button.closest("tr").removeClass("success").addClass("error");
