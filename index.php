@@ -54,7 +54,7 @@ $page->html .= '<h4>Recently Approved (last 15)</h4>
 foreach($result as $value) {
 	$page->html .= '<tr class="success">';
 
-	$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</td>';
+	$page->html .= '<td><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['id'] . '</a></td>';
 	$page->html .= '<td>' . $value['date'] . '</td>';
 	$page->html .= '<td>' . $value['approvalDate'] . '</td>';
 	$page->html .= '</tr>';

@@ -70,7 +70,6 @@ class Page
 					<meta name="description" content="' . META_DESCRIPTION . '">
 					<meta name="author" content="Fog Productions">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<META HTTP-EQUIV="EXPIRES" CONTENT="Fri, 24 Jan 2015 00:00:01 GMT">
                     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
 					<link rel="shortcut icon" href="'. SITE_URL .'assets/ico/favicon.png">
 					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
@@ -188,7 +187,7 @@ class Page
 				  </div>
 				  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				    <button type="submit" id="loginBtn" class="btn btn-primary">Login</a>
+				    <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
 				  </div>
 		    	</form>
 				</div>';
