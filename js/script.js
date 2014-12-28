@@ -68,4 +68,5 @@ $(function() {
             button.closest("tr").addClass("error");
         });                            
     });
+    $("#contactForm").validate();
 });
