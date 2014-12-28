@@ -1,5 +1,5 @@
 <?php
-include_once ("setup.php");
+include_once ("../setup.php");
 
 $sql = "SELECT COUNT(*) as numberOfReports FROM `blockedusers` WHERE `approvalStatus` = 0 ORDER BY `date` DESC";
 $result = $database->execute($sql);
