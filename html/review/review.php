@@ -45,7 +45,7 @@ foreach($result as $value) {
 
 	if($value['displayName'] != NULL) {
 		if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
-			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
+			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. rawurlencode($value['youtubeUrl']) .'">(^)</a></td>';
 		else
 			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a></td>';
 	} else {
@@ -56,7 +56,7 @@ foreach($result as $value) {
 	$page->html .= '<td class="date">' . $value['date'] . '</td>';
 	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
 	$page->html .= '<td class="count">' . $value['count'] . '</td>';
-	$page->html .= '<td class="decision"><button profileid="'.$value['id'].'" class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button profileid="'.$value['id'].'" class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
+	$page->html .= '<td class="decision"><button data-profileid="'.$value['id'].'" class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button data-profileid="'.$value['id'].'" class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
 }		

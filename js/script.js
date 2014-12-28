@@ -24,14 +24,14 @@ $(function() {
         });  
     });
     $("button.approve").click(function(){
-        var id = $(this).attr("profileid");
+        var id = $(this).attr("data-profileid");
         var button = $(this);
         $.post("ajax.php",{status:1,id:id},function(result){
             button.closest("tr").removeClass("error").addClass("success");
         });                            
     });
     $("button.reject").click(function(){
-        var id = $(this).attr("profileid");
+        var id = $(this).attr("data-profileid");
         var button = $(this);
         $.post("ajax.php",{status:-1,id:id},function(result){
             button.closest("tr").removeClass("success").addClass("error");
