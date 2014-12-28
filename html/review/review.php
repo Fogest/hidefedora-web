@@ -6,6 +6,10 @@ $page->page_header = 'Review';
 
 $page->privilege = 1;
 
+///////////////////////
+//Review Queue Table //
+///////////////////////
+
 $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "ORDER BY `blockedusers`.`count` DESC, `blockedusers`.`date` ASC\n"
     . "LIMIT 75";
@@ -59,6 +63,10 @@ foreach($result as $value) {
 	
 $page->html .= '</tbody>
 </table>';
+
+////////////////////////////
+//Recently Approved Table //
+////////////////////////////
 
 $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 1 OR `approvalStatus` = -1\n"
     . "ORDER BY `blockedusers`.`approvalDate` DESC\n"
