@@ -75,7 +75,7 @@ class Page
 					<link href="' . CSS_PATH . 'bootstrap' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH . 'bootstrap-responsive' . CSS_EXTENSION . '" rel="stylesheet">
 					<link href="' . CSS_PATH .
-                 'main.css" rel="stylesheet">
+                 'main.css?ver='.$this->getCurrentGitCommit().'" rel="stylesheet">
 				</head>
 				<body>
 				<div id="site"><div id="pageTitle" style="display: none;">', $this->page_title, '</div>
@@ -254,10 +254,25 @@ class Page
                 <script type="text/javascript" src="' .
                  JAVASCRIPT_PATH . 'jquery.hoverIntent.minified' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript" src="' .
-                 JAVASCRIPT_PATH . 'script' . JAVASCRIPT_EXTENSION . '"></script>
+                 JAVASCRIPT_PATH . 'script' . JAVASCRIPT_EXTENSION . '?ver='.$this->getCurrentGitCommit().'"></script>
 				</div>
 				</body>	
 				</html>';
+    }
+    /**
+     * Get the hash of the current git HEAD
+     * We can use this to version our scripts and styles to bust caches when updates are made
+     * @global CURRENT_GIT_COMMIT
+     * @param str $branch The git branch to check
+     * @param int $length Optionally only return the first $length characters of the hash
+     * @return mixed Either the hash or a boolean false
+     */
+    private function getCurrentGitCommit( $branch='master', $length=false ) {
+      if ( ! defined( 'CURRENT_GIT_COMMIT' ) ) {
+        $hash = file_get_contents(substr($_SERVER['DOCUMENT_ROOT'], 0, -1).SITE_URL.'.git/refs/heads/'.$branch);
+        define( 'CURRENT_GIT_COMMIT', ( $hash ? $hash : false ) );
+      }
+      return ($length ? substr(CURRENT_GIT_COMMIT, 0, $length ) : CURRENT_GIT_COMMIT );
     }
 }
 ?>
