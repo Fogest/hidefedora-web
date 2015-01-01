@@ -156,6 +156,16 @@ table.review {
 }
 
 
+/*====== Readmore CSS ======= */
+.readmore-js-toggle, .readmore-js-section {
+	display: block;
+	width: 100%;
+}
+.readmore-js-section {
+	overflow: hidden;
+}
+
+
 /*====== Pop up box ======= */
 .popbox {
     display: none;

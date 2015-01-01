@@ -254,6 +254,8 @@ class Page
                 <script type="text/javascript" src="' .
                  JAVASCRIPT_PATH . 'jquery.hoverIntent.minified' . JAVASCRIPT_EXTENSION . '"></script>
                 <script type="text/javascript" src="' .
+                 JAVASCRIPT_PATH . 'readmore' . JAVASCRIPT_EXTENSION . '"></script>
+                <script type="text/javascript" src="' .
                  JAVASCRIPT_PATH . 'script' . JAVASCRIPT_EXTENSION . '?ver='.$this->getCurrentGitCommit().'"></script>
 				</div>
 				</body>	

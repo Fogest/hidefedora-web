@@ -69,4 +69,14 @@ $(function() {
         });                            
     });
     $("#contactForm").validate();
+    $(".comment").readmore({
+        speed: 100,
+        maxHeight: 300,
+        embedCSS: false,
+        afterToggle: function(trigger, element, expanded) {
+            if(! expanded) { // The "Close" link was clicked
+                $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
+            }
+        }
+    });
 });
