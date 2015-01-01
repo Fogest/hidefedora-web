@@ -15,8 +15,7 @@ $count = $database->execute($sql);
 $count = $count[0]['Count'];
 
 $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
-    . "ORDER BY `blockedusers`.`count` DESC, `blockedusers`.`date` ASC\n"
-    . "LIMIT 75";
+    . "ORDER BY `blockedusers`.`date` ASC\n";
 $result = $database->execute($sql);
 
 $page->html .= '<div class="banner-message">There are <strong>'.$count.'</strong> report(s) remaining! The current page shows a maximum of 75 of these.</div><div id="pop1" class="popbox">
@@ -38,15 +37,31 @@ $page->html .= '<h4 class="floatLeft">Review Queue</h4>
 			<th class="comment">Comment</th>
 			<th class="date">Date</th>
 			<th class="ip">IP</th>
-			<th class="count">Reports</th>
+			<th class="weight">Weight</th>
 			<th class="decision">Approve/Reject</th>
 		</tr>
 	</thead>
 	<tbody>';
 
+foreach($result as &$value) {
+	$sql = "SELECT DISTINCT reports.ip,reportingusers.rep FROM reports \n"
+    . "INNER JOIN reportingusers\n"
+    . "ON reports.ip=reportingusers.ip\n"
+    . "WHERE `id` = '".$value['id']."'\n";
+    $weightingResult = $database->execute($sql);
+    $value['weight'] = 0;
+    foreach($weightingResult as $weight)
+    	$value['weight'] = $weight['rep'] + $value['weight'];
+}
+unset($value);
+
+usort($result, function ($a, $b) {
+    if ($a['weight'] == $b['weight']) return 0;
+    return ($a['weight'] > $b['weight']) ? -1 : 1;
+});
+
 foreach($result as $value) {
 	$page->html .= '<tr>';
-
 	if($value['displayName'] != NULL) {
 		if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
 			$page->html .= '<td class="id"><img src="'.$value['profilePictureUrl'].'" alt="'.$value['displayName'].'"><a target="_blank" href="https://plus.google.com/' . $value['id'] . '">' . $value['displayName'] . '</a> <a target="_blank" href="'. $value['youtubeUrl'] .'">(^)</a></td>';
@@ -57,9 +72,18 @@ foreach($result as $value) {
 	}
 
 	$page->html .= '<td class="comment">' . $value['comment'] . '</td>';
-	$page->html .= '<td class="date">' . $value['date'] . '</td>';
-	$page->html .= '<td class="ip">' . long2ip($value['ip']) . '</td>';
-	$page->html .= '<td class="count">' . $value['count'] . '</td>';
+
+	//Gotta get the last reporting user for this report to get most recent date and most recent ip.
+	$sql = "SELECT * FROM `reports` WHERE `id` = '".$value['id']."'";
+	$userInfoResult = $database->execute($sql);
+	if(isset($userInfoResult[0]['id'])) {
+		$page->html .= '<td class="date">' . $userInfoResult[0]['date'] . '</td>';
+		$page->html .= '<td class="ip">' . long2ip($userInfoResult[0]['ip']) . '</td>';
+	} else {
+		$page->html .= '<td class="date"></td>';
+		$page->html .= '<td class="ip"></td>';
+	}
+	$page->html .= '<td class="count">' . $value['weight'] . '</td>';
 	$page->html .= '<td class="decision"><button data-profileid="'.$value['id'].'" class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button data-profileid="'.$value['id'].'" class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
@@ -73,6 +97,7 @@ $page->html .= '</tbody>
 	<button class="approveAll btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
 </div><div style="clear: both;"></div>';
 
+/*
 ////////////////////////////
 //Recently Approved Table //
 ////////////////////////////
@@ -126,7 +151,7 @@ foreach($result as $value) {
 
 
 	$page->html .= '</tbody>
-</table>';
+</table>'; */
 
 $page->display();
 ?>

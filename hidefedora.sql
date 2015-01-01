@@ -26,28 +26,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `blockedusers`
 --
 
-CREATE TABLE IF NOT EXISTS `blockedusers` (
-  `pkey` int(11) NOT NULL AUTO_INCREMENT,
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `displayName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `profilePictureUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8_unicode_ci,
-  `date` datetime NOT NULL,
-  `count` int(11) NOT NULL DEFAULT '1' COMMENT 'Number of times item has been reported',
-  `approvalStatus` int(2) DEFAULT '0' COMMENT '0 = new, 1 = Approved, -1 = denied',
-  `approvalDate` datetime DEFAULT NULL,
-  `ip` bigint(14) DEFAULT NULL,
-  `approvingUser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `youtubeUrl` tinytext COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`pkey`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `idx_blockedusers_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `appeals`
 --
@@ -55,14 +33,66 @@ CREATE TABLE IF NOT EXISTS `blockedusers` (
 CREATE TABLE IF NOT EXISTS `appeals` (
   `pkey` int(11) NOT NULL AUTO_INCREMENT,
   `id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `approvalStatus` tinyint(4) DEFAULT '0' COMMENT '0 = pending, 1 = accepted',
+  `approvalStatus` tinyint(4) DEFAULT '0' COMMENT '0 = pending, 1 = accepted, -1 = denied',
   `ip` int(11) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`pkey`),
   UNIQUE KEY `pkey_UNIQUE` (`pkey`),
-  KEY `id_idx` (`id`),
-  CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `blockedusers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Table to handle user appeals on their bans. ';
+  KEY `id_idx` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Table to handle user appeals on their bans. ' AUTO_INCREMENT=10 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blockedusers`
+--
+
+CREATE TABLE IF NOT EXISTS `blockedusers` (
+  `pkey` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `displayName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `profilePictureUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `date` datetime NOT NULL COMMENT 'Initial report date',
+  `youtubeUrl` tinytext COLLATE utf8_unicode_ci,
+  `approvalStatus` int(2) DEFAULT '0' COMMENT '0 = new, 1 = Approved, -1 = denied',
+  `approvalDate` datetime DEFAULT NULL,
+  `approvingUser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`pkey`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `idx_blockedusers_id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17405 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reportingusers`
+--
+
+CREATE TABLE IF NOT EXISTS `reportingusers` (
+  `ip` bigint(14) NOT NULL COMMENT 'The unique ip address of a user reporting.',
+  `count` int(11) DEFAULT '1' COMMENT 'The number of reports the user has made',
+  `rep` int(11) DEFAULT '1' COMMENT 'Rep goes up and down based on how their reporting is doing.',
+  PRIMARY KEY (`ip`),
+  UNIQUE KEY `ip_UNIQUE` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Table to keep track of the various ip''s of our reporting users for weighting purposes';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reports`
+--
+
+CREATE TABLE IF NOT EXISTS `reports` (
+  `pkey` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'The ID of the user they are reporting.',
+  `ip` bigint(14) DEFAULT NULL,
+  `date` datetime NOT NULL COMMENT 'Time of report',
+  PRIMARY KEY (`pkey`),
+  UNIQUE KEY `pkey_UNIQUE` (`pkey`),
+  KEY `ID` (`id`),
+  KEY `ip_idx` (`ip`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Table which collects everysingle report and logs all the data about the reporting user' AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -87,6 +117,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `user_level`, `email`, `account_creation_date`, `account_creation_ip`) VALUES
 (1, 'UsernameInHere', 'sha-256 password here', 2, 'email@example.com', '2014-11-27 00:00:00', NULL);
+
+--
+-- Constraints for table `appeals`
+--
+ALTER TABLE `appeals`
+  ADD CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `blockedusers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `ip` FOREIGN KEY (`ip`) REFERENCES `reportingusers` (`ip`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `profileId` FOREIGN KEY (`id`) REFERENCES `blockedusers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -21,8 +21,8 @@ function submissionCooldownCheck($database) {
 	}
 	if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 		$ip = ip2long($_SERVER['REMOTE_ADDR']);
-	$sql = "SELECT `date` FROM `blockedusers` WHERE `ip` = ". $ip ."\n"
-    . "ORDER BY `blockedusers`.`date` DESC LIMIT 1";
+	$sql = "SELECT `date` FROM `reports` WHERE `ip` = ". $ip ."\n"
+    . "ORDER BY `reports`.`date` DESC LIMIT 1";
 
     $date = $database->execute($sql);
     if(isset($date[0]['date']))
@@ -90,28 +90,18 @@ function submit($database) {
 		die('Profile does not exist.');
 	
 	//Lookup ID in database to see if it exists or not.
-	$query = "SELECT id,count,approvalStatus FROM blockedusers WHERE id=" . $cleaned . ";";
+	$query = "SELECT id,approvalStatus FROM blockedusers WHERE id=" . $cleaned . ";";
 	$result = $database->execute($query);
 
 	//The ID exists in the datbase. UPDATE record
 	if(isset($result[0]['id'])) {
 		//Only update if the user isn't already approved.
 		if($result[0]['approvalStatus'] != 1) {
-			if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-				$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-			}
-			if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
-				$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
+			//Update the comment, and nullify the approval data in blockedusers.
 			$table = 'blockedusers';
-			$args['count'] = $result[0]['count'] + 1;
 			$args['approvalStatus'] = 0;
 			$args['approvingUser'] = "NULL";
 			$args['approvalDate'] = "NULL";
-			$args['date'] = date("Y-m-d H:i:s");
-
-			$regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
-			if(isset($_POST['youtubeUrl']) && preg_match($regex, $_POST['youtubeUrl']))
-				$args['youtubeUrl'] = $_POST['youtubeUrl'];
 
 			if(isset($_POST['comment']))
 				if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
@@ -121,9 +111,44 @@ function submit($database) {
 
 			$result = $database->update($table, $args, $where);
 			if(!$result)
-				echo 'Failed to save to database!';
-			else
-				echo 'URL saved; Now in review process!';
+				die('Failed to save to database!');
+
+			//Check reportingusers table to see if reporting user exists or not
+			if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+				$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+			}
+			if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+				$ip = ip2long($_SERVER['REMOTE_ADDR']);
+			$sql = "SELECT * FROM `reportingusers` WHERE `ip` = " . $ip;
+			$ipResult = $database->execute($sql);
+
+			$args = null;
+			$where = null;
+			//If ip is set then add to count, else make new record
+			if(isset($ipResult[0]['ip'])) {
+				$table = 'reportingusers';
+				$args['count'] = $ipResult[0]['count'] + 1;
+				$where['ip'] = $ipResult[0]['ip'];
+				$result = $database->update($table, $args, $where);
+			} else {
+				$table = 'reportingusers';
+				$args['ip'] = $ip;
+				$result = $database->insert($table,$args);
+			}
+
+			if(!$result)
+				die('Failed to save to database!');
+
+			$args = null;
+			$table = 'reports';
+			$args['id'] = $id[0][0];
+			$args['ip'] = $ip;
+			$args['date'] = date("Y-m-d H:i:s");
+			$result = $database->insert($table,$args);
+
+			if(!$result)
+				die('Failed to save to database!');
+			echo 'URL saved; Now in review process!';
 		} else {
 			//User already approved, don't do anything
 			echo 'User has already been blocked!';
@@ -131,28 +156,59 @@ function submit($database) {
 	}
 	//The ID was not found in the database, INSERT into database
 	else {
+		//Save into blockedusers table
 		$table = 'blockedusers';
 		$args['id'] = $id[0][0];
 		$args['displayName'] = $profileData['displayName'];
 		$args['profilePictureUrl'] = substr($profileData['image']['url'], 0, -2) . '150';
 		$args['date'] = date("Y-m-d H:i:s");
+		if(isset($_POST['comment']))
+			if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
+				$args['comment'] = $_POST['comment'];
+		$regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
+			if(isset($_POST['youtubeUrl']) && preg_match($regex, $_POST['youtubeUrl']))
+				$args['youtubeUrl'] = $_POST['youtubeUrl'];
 
+		$result = $database->insert($table,$args);
+		if(!$result)
+			die('Failed to save to database!');
+			
+		//Check reportingusers table to see if reporting user exists or not
 		if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 			$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 		}
 		if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
-			$args['ip'] = ip2long($_SERVER['REMOTE_ADDR']);
-		if(isset($_POST['comment']))
-			if($_POST['comment'] != NULL || trim($_POST['comment']) != '')
-				$args['comment'] = $_POST['comment'];
-		if(isset($_POST['youtubeUrl']))
-			$args['youtubeUrl'] = $_POST['youtubeUrl'];
+			$ip = ip2long($_SERVER['REMOTE_ADDR']);
+		$sql = "SELECT * FROM `reportingusers` WHERE `ip` = " . $ip;
 
-		$result = $database->insert($table,$args);
+		$ipResult = $database->execute($sql);
+		$args = null;
+		//If ip is set then add to count, else make new record
+		if(isset($ipResult[0]['ip'])) {
+			$table = 'reportingusers';
+			$args['count'] = $ipResult[0]['count'] + 1;
+			$where['ip'] = $ipResult[0]['ip'];
+			$result = $database->update($table, $args, $where);
+		} else {
+			$table = 'reportingusers';
+			$args['ip'] = $ip;
+			$result = $database->insert($table,$args);
+		}
+
 		if(!$result)
-			echo 'Failed to save to database!';
-		else
-			echo 'URL saved; Now in review process!';
+			die('Failed to save to database!');
+
+		$args = null;
+		$table = 'reports';
+		$args['id'] = $id[0][0];
+		$args['ip'] = $ip;
+		$args['date'] = date("Y-m-d H:i:s");
+		$result = $database->insert($table,$args);
+
+		if(!$result)
+			die('Failed to save to database!');
+
+		echo 'URL saved; Now in review process!';
 	}
 }
 

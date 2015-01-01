@@ -148,7 +148,7 @@ table.review {
 .review th.ip {
 	width: 10%;
 }
-.review th.count {
+.review th.weight {
 	width: 7%;
 }
 .review th.decision {
