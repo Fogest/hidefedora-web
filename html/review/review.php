@@ -18,6 +18,10 @@ $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "ORDER BY `blockedusers`.`date` ASC\n";
 $result = $database->execute($sql);
 
+$page->html .= $alert->displayInfo("Some major work is being done on the review system. You will notice the count is now named weight. There will
+	soon be a system in place to rank things better based on keywords, the rep of the reporting user, and on the number of reports like it is already doing. Right
+	now the system is only using report counts!");
+
 $page->html .= '<div class="banner-message">There are <strong>'.$count.'</strong> report(s) remaining! The current page shows a maximum of 75 of these.</div><div id="pop1" class="popbox">
 				    <h2>Success!</h2>
 				    <p>This is an example popbox.</p>
