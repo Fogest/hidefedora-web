@@ -125,13 +125,12 @@ input[type=text].valid,input[type=password].valid,textarea.valid {
 	margin: 0 auto !important;
 }
 
-#rejectAll,#approveAll {
+.rejectAll,.approveAll {
 	float: right;
 }
-.all {
+.all-top {
 	padding-bottom: 35px;
 }
-
 
 table.review {
 	table-layout: fixed;

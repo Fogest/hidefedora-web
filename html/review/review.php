@@ -22,9 +22,9 @@ $page->html .= '<div id="pop1" class="popbox">
 				';
 
 $page->html .= '<h4 class="floatLeft">Review Queue</h4>
-<div class="all">
-	<button id="rejectAll" class="btn btn-danger reject" type="button" name="rejectAll">Reject Remaining</button>
-	<button id="approveAll" class="btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
+<div class="all-top">
+	<button class="rejectAll btn btn-danger reject" type="button" name="rejectAll">Reject Remaining</button>
+	<button class="approveAll btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
 </div>
 <div style="clear: both;"></div>
 <table class="table table-hover table-bordered review">
@@ -62,7 +62,12 @@ foreach($result as $value) {
 }		
 	
 $page->html .= '</tbody>
-</table>';
+</table>
+
+<div class="all-bottom">
+	<button class="rejectAll btn btn-danger reject" type="button" name="rejectAll">Reject Remaining</button>
+	<button class="approveAll btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
+</div><div style="clear: both;"></div>';
 
 ////////////////////////////
 //Recently Approved Table //

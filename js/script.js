@@ -37,10 +37,10 @@ $(function() {
             button.closest("tr").removeClass("success").addClass("error");
         });    
     });
-    $("#approveAll").click(function(){
+    $(".approveAll").click(function(){
         $("table.review").find("tbody tr:not(.success,.error)").find(".approve").click();
     });
-    $("#rejectAll").click(function(){
+    $(".rejectAll").click(function(){
         $("table.review").find("tbody tr:not(.success,.error)").find(".reject").click();
     });
 
