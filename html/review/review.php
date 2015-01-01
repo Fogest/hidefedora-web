@@ -100,7 +100,7 @@ $page->html .= '</tbody>
 	<button class="approveAll btn btn-success approve" type="button" name="ApproveAll">Approve Remaining</button>
 </div><div style="clear: both;"></div>';
 
-/*
+
 ////////////////////////////
 //Recently Approved Table //
 ////////////////////////////
@@ -117,7 +117,7 @@ $page->html .= '<h4>Recently Approved (last 10)</h4>
 		<tr>
 			<th>ID</th>
 			<th>Comment</th>
-			<th>Date Submitted</th>
+			<th>Date ID Submitted</th>
 			<th>Date Approved</th>
 			<th>Approved By</th>
 		</tr>
@@ -154,7 +154,7 @@ foreach($result as $value) {
 
 
 	$page->html .= '</tbody>
-</table>'; */
+</table>';
 
 $page->display();
 ?>
