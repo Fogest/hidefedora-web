@@ -10,12 +10,16 @@ $page->privilege = 1;
 //Review Queue Table //
 ///////////////////////
 
+$sql = "SELECT COUNT(*) as Count FROM `blockedusers` WHERE `approvalStatus`=0";
+$count = $database->execute($sql);
+$count = $count[0]['Count'];
+
 $sql = "SELECT * FROM `blockedusers` WHERE `approvalStatus` = 0\n"
     . "ORDER BY `blockedusers`.`count` DESC, `blockedusers`.`date` ASC\n"
     . "LIMIT 75";
 $result = $database->execute($sql);
 
-$page->html .= '<div id="pop1" class="popbox">
+$page->html .= '<div class="banner-message">There are <strong>'.$count.'</strong> report(s) remaining! The current page shows a maximum of 75 of these.</div><div id="pop1" class="popbox">
 				    <h2>Success!</h2>
 				    <p>This is an example popbox.</p>
 				</div>
