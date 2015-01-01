@@ -59,8 +59,9 @@ usort($result, function ($a, $b) {
     if ($a['weight'] == $b['weight']) return 0;
     return ($a['weight'] > $b['weight']) ? -1 : 1;
 });
-
+$count = 0;
 foreach($result as $value) {
+	$count = $count + 1;
 	$page->html .= '<tr>';
 	if($value['displayName'] != NULL) {
 		if($value['youtubeUrl'] != NULL && $value['youtubeUrl'] != 'Manual')
@@ -87,6 +88,8 @@ foreach($result as $value) {
 	$page->html .= '<td class="decision"><button data-profileid="'.$value['id'].'" class="btn btn-success approve" type="button" name="'.$value['pkey'].'">Approve</button><button data-profileid="'.$value['id'].'" class="btn btn-danger reject" type="button" name="'.$value['pkey'].'">Reject</button></td>';
 
 	$page->html .= '</tr>';
+	if($count >= 75)
+		break;
 }		
 	
 $page->html .= '</tbody>
