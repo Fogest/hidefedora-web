@@ -94,7 +94,7 @@ foreach($result as &$value) {
 }
 unset($value);
 
-$page->html .= '<h4>Recently Approved (last 10)</h4>
+$page->html .= '<h4>Recently Rejected (last 10)</h4>
 <table class="review table table-hover table-bordered">
     <thead>
         <tr>
