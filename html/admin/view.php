@@ -63,7 +63,7 @@ foreach($result as $value) {
     $page->html .= '<td class="comment">' . $value['comment'] . '</td>';
     $page->html .= '<td>' . $value['date'] . '</td>';
     $page->html .= '<td>' . $value['approvalDate'] . '</td>';
-    $page->html .= '<td>' . $value['ip'] . '</td>';
+    $page->html .= '<td>' . long2ip($value['ip']) . '</td>';
     $page->html .= '<td>' . $value['approvingUser'] . '</td>';
 
 
@@ -129,7 +129,7 @@ foreach($result as $value) {
     $page->html .= '<td class="comment">' . $value['comment'] . '</td>';
     $page->html .= '<td>' . $value['date'] . '</td>';
     $page->html .= '<td>' . $value['approvalDate'] . '</td>';
-    $page->html .= '<td>' . $value['ip'] . '</td>';
+    $page->html .= '<td>' . long2ip($value['ip']) . '</td>';
     $page->html .= '<td>' . $value['approvingUser'] . '</td>';
 
 
