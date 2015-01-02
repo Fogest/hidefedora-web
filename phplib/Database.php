@@ -171,10 +171,10 @@ class Database
             
             case "DELETE":
                 if (! $working_result) {
-                    echo $alert->displayError('Database.php', 
+                    echo 'Database.php', 
                             'execute( $query )', 
                             'Error in executing DELETE query: ' . $query .
-                                     ' with error ' . $db->error . '</font>');
+                                     ' with error ' . $db->error . '</font>';
                 }
                 
                 // Need to show the number of affected rows

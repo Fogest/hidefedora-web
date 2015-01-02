@@ -104,6 +104,7 @@ class Page
         if(isset($_SESSION['user_level'])) {
             if($_SESSION['user_level'] > 0) {
                 echo '<li><a href="' . SITE_URL . 'html/review/review.php">Review</a></li>';
+                echo '<li><a href="' . SITE_URL . 'html/admin/prune.php">Prune IP</a></li>';
                 echo '<li><a href="' . SITE_URL . 'html/unban/unban.php">Unban</a></li>';
             }
         }
