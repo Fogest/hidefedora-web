@@ -62,13 +62,13 @@ function fetchProfileInfo($id) {
  */
 function submit($database) {
 	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-				$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+		$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 	}
 	if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
 		$ip = ip2long($_SERVER['REMOTE_ADDR']);
 	$sql = "SELECT isBanned FROM `reportingusers` WHERE `ip` = ".$ip;
 	$ipTestResult = $database->execute($sql);
-	if(isset($ipTestResult[0]['ip'])) {
+	if(isset($ipTestResult[0]['isBanned'])) {
 		if($ipTestResult[0]['isBanned'] = 0)
 			die("URL saved; Now in review process!");
 	}
