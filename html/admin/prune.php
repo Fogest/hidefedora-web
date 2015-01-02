@@ -26,7 +26,7 @@ if(isset($_POST['submit'])) {
     $result = $database->execute($sql);
     if(!$result)
     	die('Error pruning user');
-    echo 'Success!';
+    $page->html .= 'Success!';
 }
 
 $page->html .= '<!-- Text input-->
