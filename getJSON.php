@@ -10,7 +10,7 @@
 	$cachetime = 3600;
 
 	// Serve from the cache if it is younger than $cachetime
-	if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
+	if (file_exists($cachefile)) {
 	    echo "<!-- Cached copy, generated ".date('H:i', filemtime($cachefile))." -->\n";
 	    include($cachefile);
 	    exit;
