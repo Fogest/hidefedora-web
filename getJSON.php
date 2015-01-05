@@ -6,11 +6,8 @@
 	$break = Explode('/', $url);
 	$file = $break[count($break) - 1];
 	$cachefile = $cacheDir.'cached-'.substr_replace($file ,"",-4).'.html';
-	//Every hour update cache.
-	$cachetime = 3600;
-
 	// Serve from the cache if it is younger than $cachetime
-	if (file_exists($cachefile)) {
+	if (file_exists(substr($_SERVER['DOCUMENT_ROOT'], 0, -1).SITE_URL.$cachefile)) {
 	    echo "<!-- Cached copy, generated ".date('H:i', filemtime($cachefile))." -->\n";
 	    include($cachefile);
 	    exit;
@@ -28,9 +25,8 @@
 	    }
 
 	    $jsonOutput = array("fedoras" => $ids);
-
+		echo '<!--Generated cache:' . date('h:i:s A') . '-->';
 		echo json_encode($jsonOutput);
-		echo '<!--Generated cache:' . date('h:i:s A') . '-->'; 
 		// Cache the contents to a file
 		$cached = fopen($cachefile, 'w');
 		fwrite($cached, ob_get_contents());
