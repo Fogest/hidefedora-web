@@ -32,7 +32,7 @@ class Email
         $mail->Host = 'smtp.mandrillapp.com';
         $mail->Port = 587;
         $mail->Username = 'fogestjv@gmail.com';
-        $mail->Password = '_440zB2bFIO6jiVHMg-Ejw';
+        $mail->Password = MANDRILL_API_KEY;
 
 
         $mail->SetFrom('admin@jhvisser.com', 'Hide Fedora Staff');
