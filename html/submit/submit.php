@@ -61,25 +61,9 @@ function fetchProfileInfo($id) {
  * @return null
  */
 function submit($database) {
-	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-		$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-	}
-	if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
-		$ip = ip2long($_SERVER['REMOTE_ADDR']);
-	$sql = "SELECT isBanned FROM `reportingusers` WHERE `ip` = ".$ip;
-	$ipTestResult = $database->execute($sql);
-	if(isset($ipTestResult[0]['isBanned'])) {
-		if($ipTestResult[0]['isBanned'] = 0)
-			die("URL saved; Now in review process!");
-	}
-
 
 	$regex = "/((https|http):\/\/plus\.google\.com\/\d+)|(^\d+$)/"; 
 	$profileurl = $_POST['profileUrl'];
-
-	//Applies cooldown if user is submitting too fast.
-	if(!submissionCooldownCheck($database))
-		die("URL saved; Now in review process!");
 
 	//Kill execution if field empty or not valid id.
 	if(!isset($_POST['profileUrl']))
@@ -88,6 +72,22 @@ function submit($database) {
 		die('Profile URL not filled.');
 	else if(!preg_match($regex,$profileurl))
 		die('URL must be from YouTube or Google+');
+
+	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+                $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+        }
+        if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+                $ip = ip2long($_SERVER['REMOTE_ADDR']);
+        $sql = "SELECT isBanned FROM `reportingusers` WHERE `ip` = ".$ip;
+        $ipTestResult = $database->execute($sql);
+        if(isset($ipTestResult[0]['isBanned'])) {
+                if($ipTestResult[0]['isBanned'] = 0)
+                        die("URL saved; Now in review process!");
+        }
+
+	//Applies cooldown if user is submitting too fast.
+        if(!submissionCooldownCheck($database))
+                die("URL saved; Now in review process!");
 
 	//Check if there are numbers in ID, otherwise kill execution. 
 	$regex = "/\d+/";
