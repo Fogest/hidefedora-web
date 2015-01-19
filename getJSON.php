@@ -8,7 +8,6 @@
 	$cachefile = $cacheDir.'cached-'.substr_replace($file ,"",-4).'.html';
 	// Serve from the cache if it is younger than $cachetime
 	if (file_exists(substr($_SERVER['DOCUMENT_ROOT'], 0, -1).SITE_URL.$cachefile)) {
-	    echo "<!-- Cached copy, generated ".date('H:i', filemtime($cachefile))." -->\n";
 	    include($cachefile);
 	    exit;
 	} else {
@@ -25,7 +24,6 @@
 	    }
 
 	    $jsonOutput = array("fedoras" => $ids);
-		echo '<!--Generated cache:' . date('h:i:s A') . '-->';
 		echo json_encode($jsonOutput);
 		// Cache the contents to a file
 		$cached = fopen($cachefile, 'w');
