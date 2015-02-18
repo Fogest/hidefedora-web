@@ -1,23 +1,17 @@
-## Laravel PHP Framework
+Hide Fedora Website
+==================
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+**Currently working on switching to Laravel PHP framework, so bare in mind this may be buggy**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+This is the code for the hide-fedora website
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+To develop in this project here are the steps you must follow (you need composer installed):
 
-## Official Documentation
+1. git clone `git@github.com:Fogest/hidefedora-web.git`
+2. Do `composer install` to get all of the required packages. This will utilize the composer.json file. 
+3. Import the hidefedora.sql schema into your database. The sql file also contains a sample user record which can be modified for your use to login.
+4. You should be set to go at this point. 
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+If you have any problems let me know. The site is using a custom templating backend I made so if there are any issues I'm sorry, it is still under development :).
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Pull requests are definitely welcome!
