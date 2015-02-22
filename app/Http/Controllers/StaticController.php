@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class StaticController extends Controller {
+	public function home() {
+		return view('static.home');
+	}
 
-	public function contact()
-    {
-        return view('static.contact', $data);
+	public function contact() {
+        return view('static.contact');
     }
 
-    public function about()
-    {
+    public function about() {
         return view('static.about');
     }
 
