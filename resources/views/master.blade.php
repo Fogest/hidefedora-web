@@ -28,6 +28,18 @@
                             <li><a href="home">Home</a></li>
                         @endif
 
+                        @if (basename($_SERVER['REQUEST_URI']) == 'reports')
+                            <li class="active"><a href="reports">Reports</a></li>
+                        @else
+                            <li><a href="reports">Reports</a></li>
+                        @endif
+
+                        @if (basename($_SERVER['REQUEST_URI']) == 'history')
+                            <li class="active"><a href="history">History</a></li>
+                        @else
+                            <li><a href="history">History</a></li>
+                        @endif
+
                         @if (basename($_SERVER['REQUEST_URI']) == 'about')
                             <li class="active"><a href="about">About</a></li>
                         @else

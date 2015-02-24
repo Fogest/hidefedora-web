@@ -6,8 +6,16 @@ Route::get('home', 'StaticController@home');
 Route::get('contact', 'StaticController@contact');
 Route::get('about', 'StaticController@about');
 
-Route::get('reports', 'ReportController@reports');
+Route::get('reports', 'ReportsController@index');
+Route::get('history', 'ReportsController@history');
 
-Route::resource('users', 'UsersController');
-Route::resource('reports', 'ReportsController');
-Route::resource('reportslog', 'ReportsLogController');
+Route::post('reports/update', 'ReportsController@update');
+
+//Route::resource('users', 'UsersController');
+//Route::resource('reports', 'ReportsController');
+//Route::resource('reportslog', 'ReportsLogController');
+
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);

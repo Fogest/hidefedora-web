@@ -2,3 +2,31 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+/* Table Buttons */
+.rejectAll,.approveAll {
+    float: right;
+}
+
+
+/* Table CSS */
+
+table.review {
+    table-layout: fixed;
+    width: 100%;
+}
+.review th,td {
+    word-wrap: break-word;
+}
+.review th.id {
+    width: 12%;
+}
+.review th.time {
+    width: 14%;
+}
+.review th.weight {
+    width: 6%;
+}
+.review th.decision {
+    width: 16%;
+}
