@@ -23,47 +23,64 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         @if (basename($_SERVER['REQUEST_URI']) == 'home' || basename($_SERVER['REQUEST_URI']) == 'hidefedora' || basename($_SERVER['REQUEST_URI']) == 'public')
-                            <li class="active"><a href="home">Home</a></li>
+                            <li class="active"><a href="{{getenv('BASE_URL')}}/home">Home</a></li>
                         @else
-                            <li><a href="home">Home</a></li>
+                            <li><a href="{{getenv('BASE_URL')}}/home">Home</a></li>
                         @endif
 
                         @if (basename($_SERVER['REQUEST_URI']) == 'reports')
-                            <li class="active"><a href="reports">Reports</a></li>
+                            <li class="active"><a href="{{getenv('BASE_URL')}}/reports">Reports</a></li>
                         @else
-                            <li><a href="reports">Reports</a></li>
+                            <li><a href="{{getenv('BASE_URL')}}/reports">Reports</a></li>
                         @endif
 
                         @if (basename($_SERVER['REQUEST_URI']) == 'history')
-                            <li class="active"><a href="history">History</a></li>
+                            <li class="active"><a href="{{getenv('BASE_URL')}}/history">History</a></li>
                         @else
-                            <li><a href="history">History</a></li>
+                            <li><a href="{{getenv('BASE_URL')}}/history">History</a></li>
                         @endif
 
                         @if (basename($_SERVER['REQUEST_URI']) == 'about')
-                            <li class="active"><a href="about">About</a></li>
+                            <li class="active"><a href="{{getenv('BASE_URL')}}/about">About</a></li>
                         @else
-                            <li><a href="about">About</a></li>
+                            <li><a href="{{getenv('BASE_URL')}}/about">About</a></li>
                         @endif
 
                         @if (basename($_SERVER['REQUEST_URI']) == 'contact')
-                            <li class="active"><a href="contact">Contact</a></li>
+                            <li class="active"><a href="{{getenv('BASE_URL')}}/contact">Contact</a></li>
                         @else
-                            <li><a href="contact">Contact</a></li>
+                            <li><a href="{{getenv('BASE_URL')}}/contact">Contact</a></li>
                         @endif
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Username <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Profile</a></li>
+                        @if (Auth::guest())
+                            @if (basename($_SERVER['REQUEST_URI']) == 'login')
+                                <li class="active"><a href="{{getenv('BASE_URL')}}/auth/login">Login</a></li>
+                            @else
+                                <li><a href="{{getenv('BASE_URL')}}/auth/login">Login</a></li>
+                            @endif
 
-                                <li class="divider"></li>
-                                <li><a href="#">Settings</a></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
-                        </li>
+                            @if (basename($_SERVER['REQUEST_URI']) == 'register')
+                                <li class="active"><a href="{{getenv('BASE_URL')}}/auth/register">Register</a></li>
+                            @else
+                                <li><a href="{{getenv('BASE_URL')}}/auth/register">Register</a></li>
+                            @endif
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Profile</a></li>
+
+                                    <li class="divider"></li>
+                                    @if (Auth::user()->user_level > 1)
+                                        <li><a href="#">Admin</a></href></li>
+                                    @endif
+                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="{{getenv('BASE_URL')}}/auth/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

@@ -11,6 +11,9 @@
             <th class="date_submitted">Submission Date</th>
             <th class="date_approved">Approved</th>
             <th class="approvedBy">Approving User</th>
+            @if(Auth::user()->user_level > 1)
+                <th class="action"></th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -25,8 +28,29 @@
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->toFormattedDateString()}}</td>
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->diffForHumans()}}</td>
                 <td class="approvedBy">{{$report->approvingUser}}</td>
+                @if(Auth::user()->user_level > 1)
+                    <td class="action">
+                        <button class="btn btn-warning undo" type="button" name="{{$report->id}}">
+                            Undo
+                        </button>
+                    </td>
+                @endif
             </tr>
         @endforeach
         </tbody>
     </table>
 @stop
+
+@if(Auth::user()->user_level > 1)
+    @section('scripts')
+        <script type="text/javascript">
+            $("button.undo").click(function(){
+                var id = $(this).attr("name");
+                var button = $(this);
+                $.post("reports/update",{status:0, id:id},function(result){
+                    button.closest("tr").removeClass("danger").removeClass("success").addClass("warning");
+                });
+            });
+        </script>
+    @stop
+@endif

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('master')
 
 @section('content')
 <div class="container-fluid">
@@ -24,7 +24,7 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="/password/email">
+					<form class="form-horizontal" role="form" method="POST" action="{{getenv('BASE_URL')}}/password/email">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">

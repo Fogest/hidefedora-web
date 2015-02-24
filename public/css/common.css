@@ -30,3 +30,10 @@ table.review {
 .review th.decision {
     width: 16%;
 }
+
+.review th.action {
+    width: 8%;
+}
+.review td.action {
+    text-align:right
+}
