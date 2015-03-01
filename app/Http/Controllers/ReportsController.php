@@ -69,7 +69,7 @@ class ReportsController extends Controller {
         if(!$profileData)
             return 'Profile does not exist';
 
-        $report = Reports::where('profileId','112765789409948318451')->get()->first();
+        $report = Reports::where('profileId',$id)->get()->first();
         if(is_null($report)) {
             //There is no existing report, make new one.
             $report = new Reports();

@@ -37,7 +37,7 @@
                     @endif
                 </td>
                 <td class="comment">{{$report->comment}}</td>
-                <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->toFormattedDateString()}}</td>
+                <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->toDayDateTimeString()}}</td>
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->diffForHumans()}}</td>
                 <td class="approvedBy">{{$report->approvingUser}}</td>
                 @if(Auth::user()->user_level > 1)
