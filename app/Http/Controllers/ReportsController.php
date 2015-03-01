@@ -69,7 +69,7 @@ class ReportsController extends Controller {
         if(!$profileData)
             return 'Profile does not exist';
 
-        $report = Reports::where('profileId','112765789409948318451')->get();
+        $report = Reports::where('profileId','112765789409948318451')->get()->first();
         if(is_null($report)) {
             //There is no existing report, make new one.
             $report = new Reports();
@@ -92,6 +92,17 @@ class ReportsController extends Controller {
 
         }
         $report->save();
+    }
+
+    public function getJson() {
+        $reports = Reports::all()->where('approvalStatus', 1);
+        $fedoras = array();
+        foreach ($reports as $report) {
+            $fedoras[] = $report->profileId;
+        }
+
+        $jsonOutput = array("fedoras" => $fedoras);
+        return json_encode($jsonOutput);
     }
 
     private function fetchProfileInfo($id) {
