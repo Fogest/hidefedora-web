@@ -22,35 +22,13 @@
 
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        @if (basename($_SERVER['REQUEST_URI']) == 'home' || basename($_SERVER['REQUEST_URI']) == 'hidefedora' || basename($_SERVER['REQUEST_URI']) == 'public')
-                            <li class="active"><a href="{{getenv('BASE_URL')}}/home">Home</a></li>
-                        @else
-                            <li><a href="{{getenv('BASE_URL')}}/home">Home</a></li>
-                        @endif
 
-                        @if (basename($_SERVER['REQUEST_URI']) == 'reports')
-                            <li class="active"><a href="{{getenv('BASE_URL')}}/reports">Reports</a></li>
-                        @else
-                            <li><a href="{{getenv('BASE_URL')}}/reports">Reports</a></li>
-                        @endif
-
-                        @if (basename($_SERVER['REQUEST_URI']) == 'history')
-                            <li class="active"><a href="{{getenv('BASE_URL')}}/history">History</a></li>
-                        @else
-                            <li><a href="{{getenv('BASE_URL')}}/history">History</a></li>
-                        @endif
-
-                        @if (basename($_SERVER['REQUEST_URI']) == 'about')
-                            <li class="active"><a href="{{getenv('BASE_URL')}}/about">About</a></li>
-                        @else
-                            <li><a href="{{getenv('BASE_URL')}}/about">About</a></li>
-                        @endif
-
-                        @if (basename($_SERVER['REQUEST_URI']) == 'contact')
-                            <li class="active"><a href="{{getenv('BASE_URL')}}/contact">Contact</a></li>
-                        @else
-                            <li><a href="{{getenv('BASE_URL')}}/contact">Contact</a></li>
-                        @endif
+                            <li><a href="{{action('StaticController@home')}}">Home</a></li>
+                            <li><a href="{{action('ReportsController@create')}}">Create Report</a></li>
+                            <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
+                            <li><a href="{{action('ReportsController@history')}}">History</a></li>
+                            <li><a href="{{action('StaticController@about')}}">About</a></li>
+                            <li><a href="{{action('StaticController@contact')}}">Contact</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

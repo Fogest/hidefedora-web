@@ -1,7 +1,10 @@
 @extends('master')
 
 @section('content')
-<h1>Home!</h1>
+    <h1>Home</h1>
+    <hr/>
+    <p>Welcome to YouTube Cleaner</p>
 
-<p>Welcome to the homepage of Hide Fedora!</p>
+
+
 @stop

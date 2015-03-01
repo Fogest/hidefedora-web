@@ -23,7 +23,19 @@
             @else
                 <tr class="danger">
             @endif
-                <td class="id">{{$report->profileId}}</td>
+                <td class="id">
+                    @if (!is_null($report->profilePictureUrl))
+                        <img src="{{$report->profilePictureUrl}}" alt="{{$report->displayName}}" title="{{$report->profileId}}">
+                    @endif
+                    @if (!is_null($report->displayName))
+                        <a target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->displayName}}</a>
+                    @else
+                        <a target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->profileId}}</a>
+                    @endif
+                    @if (!is_null($report->youtubeUrl))
+                        <a target="_blank" href="{{$report->youtubeUrl}}">(^)</a>
+                    @endif
+                </td>
                 <td class="comment">{{$report->comment}}</td>
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->toFormattedDateString()}}</td>
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->diffForHumans()}}</td>
@@ -47,7 +59,7 @@
             $("button.undo").click(function(){
                 var id = $(this).attr("name");
                 var button = $(this);
-                $.post("reports/update",{status:0, id:id},function(result){
+                $.post("{{action("ReportsController@update")}}",{status:0, id:id},function(result){
                     button.closest("tr").removeClass("danger").removeClass("success").addClass("warning");
                 });
             });

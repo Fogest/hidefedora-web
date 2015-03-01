@@ -10,6 +10,8 @@ Route::get('reports', 'ReportsController@index');
 Route::get('history', 'ReportsController@history');
 
 Route::post('reports/update', 'ReportsController@update');
+Route::get('reports/create', 'ReportsController@create');
+Route::post('reports', 'ReportsController@store');
 
 //Route::resource('users', 'UsersController');
 //Route::resource('reports', 'ReportsController');

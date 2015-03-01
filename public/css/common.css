@@ -3,13 +3,17 @@ body {
     padding-bottom: 20px;
 }
 
-/* Table Buttons */
+/* =============Report Form ==================*/
+.report-form {
+    width: 50%;
+}
+
+/* ============ Table Buttons ===============*/
 .rejectAll,.approveAll {
     float: right;
 }
 
-
-/* Table CSS */
+/* ============= Table CSS  ==============*/
 
 table.review {
     table-layout: fixed;
@@ -19,7 +23,7 @@ table.review {
     word-wrap: break-word;
 }
 .review th.id {
-    width: 12%;
+    width: 15%;
 }
 .review th.time {
     width: 14%;
