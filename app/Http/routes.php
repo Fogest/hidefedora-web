@@ -14,7 +14,7 @@ Route::get('reports/create', 'ReportsController@create');
 
 Route::get('reports/getJson', 'ReportsController@getJson');
 //Temp route:
-//Route::get('reports/getJson.php', 'ReportsController@getJson');
+Route::get('getJSON.php', 'ReportsController@getJson');
 Route::post('reports', 'ReportsController@store');
 //Temp route:
 Route::post('html/submit/submit.php', 'ReportsController@store');

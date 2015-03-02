@@ -97,7 +97,7 @@ class ReportsController extends Controller {
     }
 
     public function getJson() {
-        $reports = Reports::all()->where('approvalStatus', 1);
+        $reports = Reports::where('approvalStatus', 1)->get();
         $fedoras = array();
         foreach ($reports as $report) {
             $fedoras[] = $report->profileId;
