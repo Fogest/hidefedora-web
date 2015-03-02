@@ -13,7 +13,7 @@ class ReportsController extends Controller {
             return view('static.denied');
         if(Auth::user()->user_level < 1)
             return view('static.denied');
-        $reports = Reports::where('approvalStatus', 0)->orderBy('rep', 'DESC')->take(100)->get();
+        $reports = Reports::where('approvalStatus', 0)->orderBy('rep', 'DESC')->orderBy('created_at', 'ASC')->take(100)->get();
         return view('reports.index', compact('reports'));
     }
 
