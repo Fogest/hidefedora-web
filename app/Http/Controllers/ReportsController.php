@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Reports;
+use Illuminate\Support\Facades\Cache;
 use Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -29,7 +30,7 @@ class ReportsController extends Controller {
     public function create() {
         return view('reports.create');
     }
-
+    
     public function update() {
         if(!Auth::check())
             return view('static.denied');
@@ -46,6 +47,11 @@ class ReportsController extends Controller {
             $reports->approvalStatus = $status;
             $reports->approvingUser = Auth::user()->name;
             $reports->save();
+
+            // Forget JSON cache so that new one can be generated. Only forget cache if being approved,
+            // or sent back to review queue
+            if($status == 1 || $status == 0)
+                Cache::forget('blockedUsersJson');
             return "Success: Updated report status.";
         }
         return "Error: No status and/or id inputted";
@@ -92,19 +98,26 @@ class ReportsController extends Controller {
 
         }
         $report->save();
+        // Forget JSON cache so that a new one can be generated.
+        Cache::forget('blockedUsersJson');
         $message = 'Successfully submitted report';
         return view('reports.create', compact('message'));
     }
 
     public function getJson() {
-        $reports = Reports::where('approvalStatus', 1)->get();
-        $fedoras = array();
-        foreach ($reports as $report) {
-            $fedoras[] = $report->profileId;
-        }
+        $json = Cache::rememberForever('blockedUsersJson', function()
+        {
+            $reports = Reports::where('approvalStatus', 1)->get();
+            $fedoras = array();
+            foreach ($reports as $report) {
+                $fedoras[] = $report->profileId;
+            }
 
-        $jsonOutput = array("fedoras" => $fedoras);
-        return json_encode($jsonOutput);
+            $jsonOutput = array("fedoras" => $fedoras);
+            return json_encode($jsonOutput);
+        });
+
+        return $json;
     }
 
     private function fetchProfileInfo($id) {
