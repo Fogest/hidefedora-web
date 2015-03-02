@@ -12,7 +12,7 @@ Route::get('history', 'ReportsController@history');
 Route::post('reports/update', 'ReportsController@update');
 Route::get('reports/create', 'ReportsController@create');
 
-Route::get('reports/getJson', 'ReportsController@getJson');
+Route::get('reports/profiles.json', 'ReportsController@getJson');
 //Temp route:
 Route::get('getJSON.php', 'ReportsController@getJson');
 Route::post('reports', 'ReportsController@store');
