@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home - Hide Fedora</title>
+    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     {!! HTML::style(asset('css/common.css')) !!}
 </head>
@@ -17,7 +18,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">YouTube Cleaner</a>
+                    <a class="navbar-brand" href="#">Hide Fedora</a>
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
