@@ -22,13 +22,16 @@
 
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-
-                            <li><a href="{{action('StaticController@home')}}">Home</a></li>
-                            <li><a href="{{action('ReportsController@create')}}">Create Report</a></li>
-                            <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
-                            <li><a href="{{action('ReportsController@history')}}">History</a></li>
-                            <li><a href="{{action('StaticController@about')}}">About</a></li>
-                            <li><a href="{{action('StaticController@contact')}}">Contact</a></li>
+                        <li><a href="{{action('StaticController@home')}}">Home</a></li>
+                        <li><a href="{{action('ReportsController@create')}}">Create Report</a></li>
+                        @if (!Auth::guest())
+                            @if (Auth::user()->user_level > 1)
+                                <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
+                                <li><a href="{{action('ReportsController@history')}}">History</a></li>
+                            @endif
+                        @endif
+                        <li><a href="{{action('StaticController@about')}}">About</a></li>
+                        <li><a href="{{action('StaticController@contact')}}">Contact</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

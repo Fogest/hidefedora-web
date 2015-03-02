@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>History</h1>
-
+    <hr/>
     <table class="table table-hover table-bordered review">
         <thead>
         <tr>
