@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Input;
 class ReportsController extends Controller {
 
 
+    /**
+     * Displays the index page for the reports.
+     *
+     * The page is an authenticated page for any user with level 1 and above user_level.
+     * The page is accessed via the "View Reports" tab at the top and allows the authenticated users
+     * to approve and reject various reports.
+     *
+     * @return \Illuminate\View\View The index view.
+     */
     public function index() {
         if(!Auth::check())
             return view('static.denied');
@@ -18,6 +27,15 @@ class ReportsController extends Controller {
         return view('reports.index', compact('reports'));
     }
 
+    /**
+     * Displays the history page for reports.
+     *
+     * Shows a history of the last 100 reports that have been reviewed (both approved, and rejected).
+     * This is an authenticated page for users level 1 and above, and also contains an "undo" button allowing
+     * the user to send a report back to the review queue.
+     *
+     * @return \Illuminate\View\View The history view.
+     */
     public function history() {
         if(!Auth::check())
             return view('static.denied');
@@ -27,10 +45,20 @@ class ReportsController extends Controller {
         return view('reports.history', compact('reports'));
     }
 
+    /**
+     * Simply displays the creation view for the "Create Report" tab.
+     *
+     * @return \Illuminate\View\View Create page view.
+     */
     public function create() {
         return view('reports.create');
     }
-    
+
+    /**
+     * Allows updating of the status of the report.
+     *
+     * @return \Illuminate\View\View|string An error or success message is returned.
+     */
     public function update() {
         if(!Auth::check())
             return view('static.denied');
@@ -57,6 +85,15 @@ class ReportsController extends Controller {
         return "Error: No status and/or id inputted";
     }
 
+    /**
+     * Stores/updates a record based on the "create report" pages data.
+     *
+     * When a user submits a report it is analyzed here. It checks if the profile exists as well
+     * as using the Google+ API to verify that it is a valid profile. From here the report weight is incremented
+     * if the report already exists, or a new report is created.
+     *
+     * @return bool|\Illuminate\View\View|string
+     */
     public function store() {
         $input = Request::all();
 
@@ -104,6 +141,14 @@ class ReportsController extends Controller {
         return view('reports.create', compact('message'));
     }
 
+    /**
+     * Returns JSON output of the approved reported users.
+     *
+     * The JSON outputted is retrieved from cache (redis) if possible, and if it is not possible,
+     * then the database is queried, and the json is stored in redis again. The JSON is then outputted.
+     *
+     * @return mixed JSON output
+     */
     public function getJson() {
         $json = Cache::rememberForever('blockedUsersJson', function()
         {
@@ -120,6 +165,14 @@ class ReportsController extends Controller {
         return $json;
     }
 
+    /**
+     * Gets the Google+ profile data from the Google+ API.
+     *
+     * Uses the GOOGLE_PLUS_API_KEY to check Google+ API.
+     *
+     * @param $id The id to be checked.
+     * @return bool|mixed False if failed to get, otherwise an array is returned.
+     */
     private function fetchProfileInfo($id) {
         $jsonurl = "https://www.googleapis.com/plus/v1/people/". $id ."?key=".getenv('GOOGLE_PLUS_API_KEY');
         //use @ to surpress warning.
@@ -131,6 +184,12 @@ class ReportsController extends Controller {
         return $data;
     }
 
+    /**
+     * Runs a few checks to determine if the profile url given is valid or not.
+     *
+     * @param $profileUrl The user inputted profile URL.
+     * @return bool|string String returned if invalid; True returned if valid. 
+     */
     private function checkIfIdValid($profileUrl) {
         $regex = "/((https|http):\/\/plus\.google\.com\/\d+)|(^\d+$)/";
         $profileurl = $profileUrl;
