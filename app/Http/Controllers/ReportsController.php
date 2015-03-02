@@ -165,6 +165,15 @@ class ReportsController extends Controller {
         return $json;
     }
 
+
+    /**
+     * Simply to check if cache(redis) is working correctly.
+     */
+    public function checkCache() {
+        echo "Redis cache contents of blockedUsersJson: \r\n";
+        echo Cache::get('blockedUsersJson');
+    }
+
     /**
      * Gets the Google+ profile data from the Google+ API.
      *
@@ -188,7 +197,7 @@ class ReportsController extends Controller {
      * Runs a few checks to determine if the profile url given is valid or not.
      *
      * @param $profileUrl The user inputted profile URL.
-     * @return bool|string String returned if invalid; True returned if valid. 
+     * @return bool|string String returned if invalid; True returned if valid.
      */
     private function checkIfIdValid($profileUrl) {
         $regex = "/((https|http):\/\/plus\.google\.com\/\d+)|(^\d+$)/";
