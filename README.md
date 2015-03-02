@@ -1,17 +1,21 @@
 Hide Fedora Website
 ==================
 
-**Currently working on switching to Laravel PHP framework, so bare in mind this may be buggy**
+The website is currently using the Laravel framework. 
 
-This is the code for the hide-fedora website
+##Requirements
+1. [Composer](https://getcomposer.org/)
+2. [Laravel](http://laravel.com/) (This will be downloaded via Composer, no need to download this!)
+3. Apache, PHP, MySQL
+4. Google+ API key (Only need this is if you plan to work with report submission)
 
-To develop in this project here are the steps you must follow (you need composer installed):
+##Setup/Contributing
+1. Create a fork and then clone the repository: `git clone git@github.com:Fogest/hidefedora-web.git`
+2. To get all the required elements use composer: `composer install` (you may have to use `composer.phar`)
+3. Copy the .env.example file to a new file named .env: `cp .env.example .env` (linux)
+4. Customize the `.env` file. You only need to change the `DB_` items, `BASE_URL` to website, and `GOOGLE_PLUS_API_KEY` (if using it)
+5. You now need to get the `hidefedora` database. To do this create a database named `hidefedora`. Once you have the database it is simple to get up to date with the schema. Just run `php artisan migrate` and you are set! Laravel handles getting all the tables in!
+6. You are now ready to code. Make whatever changes you'd like, commit the changes (`git commit`), then push those changes to your fork (`git push`). From here you can create a pull request on Github. I will then review your pull request and choose whether to accept it (likely will accept). 
 
-1. git clone `git@github.com:Fogest/hidefedora-web.git`
-2. Do `composer install` to get all of the required packages. This will utilize the composer.json file. 
-3. Import the hidefedora.sql schema into your database. The sql file also contains a sample user record which can be modified for your use to login.
-4. You should be set to go at this point. 
-
-If you have any problems let me know. The site is using a custom templating backend I made so if there are any issues I'm sorry, it is still under development :).
-
-Pull requests are definitely welcome!
+##Misc
+If you have any issues or questions don't be afraid to contact me or create an "Issue" and I will help you out!
