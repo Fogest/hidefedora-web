@@ -92,6 +92,8 @@ class ReportsController extends Controller {
 
         }
         $report->save();
+        $message = 'Successfully submitted report';
+        return view('reports.create', compact('message'));
     }
 
     public function getJson() {

@@ -4,6 +4,10 @@
     <h1>Report a user</h1>
     <hr/>
 
+    @if (isset($message))
+        <div class="alert alert-success" role="alert">{{$message}}</div>
+    @endif
+
     {!! Form::open(['url' => 'reports']) !!}
         <div class="report-form">
             <div class="form-group">
