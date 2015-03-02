@@ -17,7 +17,7 @@ class CreateReportsTable extends Migration {
 			$table->tinyInteger('approvalStatus')->nullable()->default('0');
 			$table->integer('rep')->default('1');
 			$table->timestamps();
-            $table->string('profilePictureUrl', 255)->nullable()->default(NULL);
+            $table->string('approvingUser', 255)->nullable()->default(NULL);
 		});
 	}
 
