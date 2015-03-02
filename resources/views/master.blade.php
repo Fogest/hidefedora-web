@@ -25,10 +25,8 @@
                         <li><a href="{{action('StaticController@home')}}">Home</a></li>
                         <li><a href="{{action('ReportsController@create')}}">Create Report</a></li>
                         @if (!Auth::guest())
-                            @if (Auth::user()->user_level > 1)
-                                <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
-                                <li><a href="{{action('ReportsController@history')}}">History</a></li>
-                            @endif
+                            <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
+                            <li><a href="{{action('ReportsController@history')}}">History</a></li>
                         @endif
                         <li><a href="{{action('StaticController@about')}}">About</a></li>
                         <li><a href="{{action('StaticController@contact')}}">Contact</a></li>

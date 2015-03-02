@@ -11,7 +11,7 @@
             <th class="date_submitted">Submission Date</th>
             <th class="date_approved">Approved</th>
             <th class="approvedBy">Approving User</th>
-            @if(Auth::user()->user_level > 1)
+            @if(Auth::user()->user_level >= 1)
                 <th class="action"></th>
             @endif
         </tr>
@@ -40,7 +40,7 @@
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->toDayDateTimeString()}}</td>
                 <td class="date_approved">{{\Carbon\Carbon::createFromTimestamp(strtotime($report->updated_at))->diffForHumans()}}</td>
                 <td class="approvedBy">{{$report->approvingUser}}</td>
-                @if(Auth::user()->user_level > 1)
+                @if(Auth::user()->user_level >= 1)
                     <td class="action">
                         <button class="btn btn-warning undo" type="button" name="{{$report->id}}">
                             Undo
