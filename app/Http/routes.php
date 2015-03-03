@@ -23,6 +23,8 @@ Route::post('html/submit/submit.php', 'ReportsController@store');
 //Route::resource('reports', 'ReportsController');
 //Route::resource('reportslog', 'ReportsLogController');
 
+Route::get('appeal', 'AppealController@index');
+
 /* Dev Routes */
 Route::get('dev/checkCache', 'ReportsController@checkCache');
 

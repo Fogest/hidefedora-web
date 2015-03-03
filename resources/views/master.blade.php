@@ -29,6 +29,7 @@
                             <li><a href="{{action('ReportsController@index')}}">View Reports</a></li>
                             <li><a href="{{action('ReportsController@history')}}">History</a></li>
                         @endif
+                        <li><a href="{{action('AppealController@index')}}">Ban Appeal</a></li>
                         <li><a href="{{action('StaticController@about')}}">About</a></li>
                         <li><a href="{{action('StaticController@contact')}}">Contact</a></li>
                     </ul>
