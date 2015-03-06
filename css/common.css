@@ -41,3 +41,25 @@ table.review {
 .review td.action {
     text-align:right
 }
+
+/* ============= Appeals CSS  ==============*/
+
+div.profileId {
+    padding-bottom: 10px;
+}
+span.descriptor {
+    font-weight: bold;
+    display: block;
+}
+span.status.accepted {
+    color: green;
+}
+span.status.pending {
+    color: gray;
+}
+span.status.rejected {
+    color: red;
+}
+div.status {
+    float: right;
+}
