@@ -15,6 +15,7 @@ Route::get('history', 'ReportsController@history');
 Route::post('reports/update', 'ReportsController@update');
 Route::get('reports/create', 'ReportsController@create');
 Route::post('reports', 'ReportsController@store');
+Route::get('reports/new', 'ReportsController@newRows');
 //Temp route:
 Route::post('html/submit/submit.php', 'ReportsController@store');
 

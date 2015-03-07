@@ -2,7 +2,7 @@
 
 @section('content')
     @if(isset($num))
-        <h1>{{$num}} Reports</h1>
+        <h1><span id="reportNum">{{$num}}</span> Reports</h1>
     @else
     <h1>0 Reports</h1>
     @endif
@@ -52,19 +52,47 @@
 
 @section('scripts')
     <script type="text/javascript">
+        var reports = {{$count}};
+        var shown = {{$count}};
+        var total = {{$num}};
         $("button.approve").click(function(){
             var id = $(this).attr("name");
             var button = $(this);
             $.post("{{action("ReportsController@update")}}",{status:1, id:id},function(result){
-                button.closest("tr").removeClass("danger").addClass("success");
+                button.closest("tr").removeClass("danger").addClass("success").remove();
             });
         });
         $("button.reject").click(function(){
             var id = $(this).attr("name");
             var button = $(this);
             $.post("{{action("ReportsController@update")}}",{status:-1, id:id},function(result){
-                button.closest("tr").removeClass("success").addClass("danger");
+                button.closest("tr").removeClass("success").addClass("danger").remove();
             });
+        });
+
+        $("button").click(function(){
+            total--;
+            $("#reportNum").text(total);
+            var row = $("table.review tr:last").clone(true);
+            $.get("{{action("ReportsController@newRows")}}",{
+                count: shown
+            }, function(res) {
+                res = jQuery.parseJSON(res);
+                if(typeof res[0] !== 'undefined') {
+                    row.find('.id img').attr("src", res[0].profilePictureUrl);
+                    row.find('.id img').attr("alt", res[0].displayName);
+                    row.find('.id a').text(res[0].displayName);
+                    row.find('.id a').attr("href", "https://plus.google.com/" + res[0].profileId);
+                    row.find('.comment').text(res[0].comment);
+                    row.find('.time').text(res[0].time);
+                    row.find('.weight').text(res[0].weight);
+                    row.find('.btn.approve').attr("name", res[0].id);
+                    row.find('.btn.reject').attr("name", res[0].id);
+                    row.insertAfter("table.review tr:last");
+                }
+            });
+            shown++;
+
         });
     </script>
 @stop

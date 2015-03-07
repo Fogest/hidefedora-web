@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Reports;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +24,20 @@ class ReportsController extends Controller {
             return view('static.denied');
         if(Auth::user()->user_level < 1)
             return view('static.denied');
-        $reports = Reports::where('approvalStatus', 0)->orderBy('rep', 'DESC')->orderBy('created_at', 'ASC')->take(100)->get();
+        $count = 10;
+        $reports = Reports::where('approvalStatus', 0)->orderBy('rep', 'DESC')->orderBy('created_at', 'ASC')->take($count)->get();
         $num = Reports::where('approvalStatus', 0)->count();
-        return view('reports.index', compact('reports', 'num'));
+        return view('reports.index', compact('reports', 'num', 'count'));
+    }
+
+    public function newRows() {
+        if(!Auth::check())
+            return view('static.denied');
+        if(Auth::user()->user_level < 1)
+            return view('static.denied');
+        $skip = Input::get('count');
+        $reports = Reports::where('approvalStatus', 0)->orderBy('rep', 'DESC')->orderBy('created_at', 'ASC')->skip($skip)->take(1)->get();
+        return json_encode($reports->toArray());
     }
 
     /**
