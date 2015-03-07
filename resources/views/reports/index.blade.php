@@ -1,7 +1,11 @@
 @extends('master')
 
 @section('content')
-    <h1>Reports</h1>
+    @if(isset($num))
+        <h1>{{$num}} Reports</h1>
+    @else
+    <h1>0 Reports</h1>
+    @endif
     <hr/>
     <table class="table table-hover table-bordered review">
         <thead>
