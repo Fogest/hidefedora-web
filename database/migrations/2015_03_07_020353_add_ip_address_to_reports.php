@@ -1,21 +1,21 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
-class AddIpAddressColumn extends Migration {
+class AddIpAddressToReports extends Migration {
 
     public function up()
     {
-        Schema::table('reports', function(Blueprint $table) {
+        Schema::table('reports', function($table) {
             $table->string('ip')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::table('reports', function(Blueprint $table) {
+        Schema::table('reports', function($table) {
             $table->dropColumn('ip');
         });
     }
+
 }

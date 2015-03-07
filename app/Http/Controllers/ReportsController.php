@@ -127,6 +127,11 @@ class ReportsController extends Controller {
 
         $report = Reports::where('profileId',$id)->get()->first();
         if(is_null($report)) {
+            if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+                $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+            }
+            if($_SERVER['REMOTE_ADDR'] != "::1" && $_SERVER['REMOTE_ADDR'] != NULL)
+                $ip = ip2long($_SERVER['REMOTE_ADDR']);
             //There is no existing report, make new one.
             $report = new Reports();
             $report->profileId = $id;
