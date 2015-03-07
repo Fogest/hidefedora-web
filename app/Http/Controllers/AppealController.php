@@ -40,6 +40,17 @@ class AppealController extends Controller {
                     $appeal->email = Request::input('email');
                 $appeal->save();
                 $appealId = $appeal->id;
+
+                $url = getenv('BASE_URL') . "/appeal/$id";
+                Mail::send('appeals.notifyEmail', compact('url'), function ($message) {
+                    $message->from('admin@jhvisser.com', "Hide Fedora Staff")->subject("A ban appeal has been created!");;
+
+                    if(Request::has('email'))
+                        $message->to(Request::input('email'))->cc('admin@jhvisser.com');
+                    else
+                        $message->to('admin@jhvisser.com');
+                });
+
             } else {
                 $contactPageUrl = getenv('BASE_URL') . "/contact";
                 return view('appeals.index', array(
