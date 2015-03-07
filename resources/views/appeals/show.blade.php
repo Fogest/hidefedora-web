@@ -49,6 +49,7 @@
                     </div>
 
                     {!! Form::hidden('appealId', $id) !!}
+                    {!! Form::hidden('profileId', $profileId) !!}
 
                     <!-- Submit - Button -->
                     <div class="form-group">

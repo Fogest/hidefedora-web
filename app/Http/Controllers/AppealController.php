@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Appeal;
+use App\Reports;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Request;
 
@@ -19,7 +22,7 @@ class AppealController extends Controller {
             $id = Request::input('profileId');
             $comment = Request::input('comment');
         } else {
-            return view('static.error', array(
+            return view('appeals.index', array(
                 'message' => "You must input a comment and profile id",
                 'status' => "error"
             ));
@@ -28,21 +31,31 @@ class AppealController extends Controller {
         $appealId = 0;
 
         if(is_null($appeal)) {
-            $appeal = new Appeal();
+            if(!is_null(Reports::where('profileId',$id)->get()->first())) {
+                $appeal = new Appeal();
 
-            $appeal->profileId = $id;
-            $appeal->comment = $comment;
-            if(Request::has('email'))
-                $appeal->email = Request::input('email');
-            $appeal->save();
-            $appealId = $appeal->id;
+                $appeal->profileId = $id;
+                $appeal->comment = $comment;
+                if (Request::has('email'))
+                    $appeal->email = Request::input('email');
+                $appeal->save();
+                $appealId = $appeal->id;
+            } else {
+                $contactPageUrl = getenv('BASE_URL') . "/contact";
+                return view('appeals.index', array(
+                    'message' => "This profile id does not exist in our records! If this is an error please send
+                    us an email via our <a href=\"".$contactPageUrl."\" class=\"alert-link\">contact page</a>.",
+                    'status' => "error"
+                ));
+            }
         } else {
             $appealId = $appeal->id;
             $appealUrl = getenv('BASE_URL') . "/appeal/" . $appealId;
+            $contactPageUrl = getenv('BASE_URL') . "/contact";
             return view('appeals.index', array(
                 'message' => "This profile has already been appealed before. If you feel we made an error in our appeal
-                please use the contact page to request further help.
-                The appeal can be found <a href=\"".$appealUrl."\" class=\"alert-link\">here</a>."));
+                please use the <a href=\"".$contactPageUrl."\" class=\"alert-link\">contact page</a> to request further help.
+                The appeal can be found <a href=\"".$appealUrl."\" class=\"alert-link\">here</a>.", 'status' => "error"));
         }
 
         $appealUrl = getenv('BASE_URL') . "/appeal/" . $appealId;
@@ -66,6 +79,18 @@ class AppealController extends Controller {
             $status = Request::input('status');
             if($status == 0 || $status == 1) {
                 $appeal->status = 1;
+                $report = Reports::where('profileId',Request::input('profileId'))->get()->first();
+                if(!is_null($report)) {
+                    $report->approvalStatus = -1;
+                    $report->approvingUser = Auth::user()->name;
+                    $report->save();
+                    Cache::forget('blockedUsersJson');
+                } else {
+                    return view('static.error', array(
+                        'message' => "There was an error changing the approval status.",
+                        'status' => "error"
+                    ));
+                }
             } elseif ($status == 2 || $status == 3) {
                 $appeal->status = -1;
             }
