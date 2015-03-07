@@ -134,6 +134,7 @@ class ReportsController extends Controller {
                 $ip = ip2long($_SERVER['REMOTE_ADDR']);
             //There is no existing report, make new one.
             $report = new Reports();
+            $report->ip = $ip;
             $report->profileId = $id;
             if(isset($input['comment']))
                 $report->comment = $input['comment'];
