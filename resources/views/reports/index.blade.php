@@ -71,8 +71,6 @@
         });
 
         $("button").click(function(){
-            total--;
-            $("#reportNum").text(total);
             var row = $("table.review tr:last").clone(true);
             $.get("{{action("ReportsController@newRows")}}",{
                 count: shown
@@ -91,6 +89,8 @@
                     row.insertAfter("table.review tr:last");
                 }
             });
+            total--;
+            $("#reportNum").text(total);
             shown++;
 
         });
