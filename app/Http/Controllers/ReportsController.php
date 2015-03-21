@@ -127,6 +127,7 @@ class ReportsController extends Controller {
 
         $report = Reports::where('profileId',$id)->get()->first();
         if(is_null($report)) {
+            $ip = '';
             if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
             }
