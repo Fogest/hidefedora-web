@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 class ReportsController extends Controller {
 
 
+
     /**
      * Displays the index page for the reports.
      *
@@ -137,8 +138,11 @@ class ReportsController extends Controller {
             $report = new Reports();
             $report->ip = $ip;
             $report->profileId = $id;
-            if(isset($input['comment']))
+            if(isset($input['comment'])) {
                 $report->comment = $input['comment'];
+                $report->rep = 1 + $this->getWeightValue($input['comment']);
+            }
+
 
             $regex = "/(https|http):\/\/(www.)?youtube.com\/.+/";
             if(isset($input['youtubeUrl']) && preg_match($regex, $input['youtubeUrl']))
@@ -194,6 +198,21 @@ class ReportsController extends Controller {
         echo Cache::get('blockedUsersJson');
     }
 
+    public function checkOldProfilesWeight() {
+        $max = Reports::max('id');
+        echo 'Max is: ' . $max . '</br>';
+        echo 'Parsing all records</br></br>';
+        for($i = 1; $i <= $max; $i++) {
+            $report = Reports::find($i);
+            if(is_null($report))
+                continue;
+            $report->rep = $report->rep + $this->getWeightValue($report->comment);
+            $report->save();
+            if($i % 100 == 0)
+                echo "Parsed $i records</br>";
+        }
+    }
+
     /**
      * Gets the Google+ profile data from the Google+ API.
      *
@@ -231,6 +250,18 @@ class ReportsController extends Controller {
             return 'URL must be from YouTube or Google+';
 
         return true;
+    }
+
+
+    private function getWeightValue($message) {
+        $hotWords = ['fedora', 'tip', 'reddit', '/r/', 'god', 'le', 'army', 'iq', 'm\'lady',
+            'mod', '420'];
+        $weight = 0;
+        foreach($hotWords as $word) {
+            if(strpos($message, $word) !== false)
+                $weight++;
+        }
+        return $weight * 10;
     }
 }
 

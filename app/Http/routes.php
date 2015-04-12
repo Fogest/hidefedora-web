@@ -25,6 +25,9 @@ Route::get('reports/profiles.json', 'ReportsController@getJson');
 //Temp route:
 Route::get('getJSON.php', 'ReportsController@getJson');
 
+/*====== Util ========*/
+Route::get('hotwords', 'ReportsController@checkOldProfilesWeight');
+
 
 
 
