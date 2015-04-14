@@ -254,11 +254,11 @@ class ReportsController extends Controller {
 
 
     private function getWeightValue($message) {
-        $hotWords = ['fedora', 'tip', 'reddit', '/r/', 'god', 'le', 'army', 'iq', 'm\'lady',
-            'mod', '420'];
+        $hotWords = ['fedora', 'tip', 'reddit', '/r/', 'le', 'army', 'iq', 'm\'lady',
+            'mod', '420', 'upboat'];
         $weight = 0;
         foreach($hotWords as $word) {
-            if(strpos($message, $word) !== false)
+            if(stripos($message, $word) !== false)
                 $weight++;
         }
         return $weight * 10;
