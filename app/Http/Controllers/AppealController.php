@@ -83,8 +83,9 @@ class AppealController extends Controller {
     }
 
     public function update($id) {
-        if(Request::has('response') && Request::has('status')) {
-            $appeal = Appeal::find($id)->first();
+        if(Request::has('response') && Request::has('status') && Request::has('appealId')) {
+            $id = Request::input('appealId');
+            $appeal = Appeal::find($id);
             $appeal->response = Request::input('response');
 
             $status = Request::input('status');
