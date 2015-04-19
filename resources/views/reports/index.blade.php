@@ -25,12 +25,12 @@
                         <img src="{{$report->profilePictureUrl}}" alt="{{$report->displayName}}" title="{{$report->profileId}}">
                     @endif
                     @if (!is_null($report->displayName))
-                        <a target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->displayName}}</a>
+                        <a class="displayName" target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->displayName}}</a>
                     @else
-                        <a target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->profileId}}</a>
+                        <a class="displayName" target="_blank" href="https://plus.google.com/{{$report->profileId}}">{{$report->profileId}}</a>
                     @endif
                     @if (!is_null($report->youtubeUrl))
-                        <a target="_blank" href="{{$report->youtubeUrl}}">(^)</a>
+                        <a class="youtubeUrl" target="_blank" href="{{$report->youtubeUrl}}">(^)</a>
                     @endif
                 </td>
                 <td class="comment">{{$report->comment}}</td>
@@ -79,8 +79,9 @@
                 if(typeof res[0] !== 'undefined') {
                     row.find('.id img').attr("src", res[0].profilePictureUrl);
                     row.find('.id img').attr("alt", res[0].displayName);
-                    row.find('.id a').text(res[0].displayName);
-                    row.find('.id a').attr("href", "https://plus.google.com/" + res[0].profileId);
+                    row.find('.id a.displayName').text(res[0].displayName);
+                    row.find('.id a.displayName').attr("href", "https://plus.google.com/" + res[0].profileId);
+                    row.find('.id a.youtubeUrl').attr("href", res[0].youtubeUrl);
                     row.find('.comment').text(res[0].comment);
                     row.find('.time').text(res[0].time);
                     row.find('.weight').text(res[0].weight);
